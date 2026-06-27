@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 final authProvider = Provider<FirebaseAuth>((ref) {
   return FirebaseAuth.instance;
@@ -52,7 +53,9 @@ class AuthController {
 
   Future<UserCredential?> signInWithGoogle() async {
     try {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignIn googleSignIn = GoogleSignIn(
+        clientId: kIsWeb ? '915275399638-4sogssisj7u6tv46g3gp6lcg9eb7ran3.apps.googleusercontent.com' : null,
+      );
       
       // Force web prompt by using disconnect or ensuring clean state could be done if needed, 
       // but standard signIn() is fine for now.
