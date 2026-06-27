@@ -896,7 +896,7 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
                 if (involvesMe) {
                   return InkWell(
                     onTap: () {
-                      context.push('/room/${due.roomId}/due-breakdown/$displayUid');
+                      context.push('/due-breakdown/${due.roomId}/$displayUid');
                     },
                     child: rowContent,
                   );

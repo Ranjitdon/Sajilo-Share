@@ -380,7 +380,7 @@ class _DuesScreenState extends ConsumerState<DuesScreen> {
 
                               return InkWell(
                                 onTap: () {
-                                  context.push('/room/${due.roomId}/due-breakdown/$otherUserId');
+                                  context.push('/due-breakdown/${due.roomId}/$otherUserId');
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(16.0),
