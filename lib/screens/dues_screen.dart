@@ -378,9 +378,13 @@ class _DuesScreenState extends ConsumerState<DuesScreen> {
                               final otherUserId = iOwe ? due.owedToId : due.owedById;
                               final categoryDetail = 'Room Expense Share';
 
-                              return Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Row(
+                              return InkWell(
+                                onTap: () {
+                                  context.push('/room/${due.roomId}/due-breakdown/$otherUserId');
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
                                   children: [
                                     UserAvatar(uid: otherUserId),
                                     const SizedBox(width: 12),
@@ -421,30 +425,10 @@ class _DuesScreenState extends ConsumerState<DuesScreen> {
                                             color: theme.colorScheme.onSurfaceVariant,
                                           ),
                                         ),
-                                        if (iOwe) ...[
-                                          const SizedBox(height: 8),
-                                          GestureDetector(
-                                            onTap: () => _settleUp(context, ref, due, user!.uid),
-                                            child: Container(
-                                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                              decoration: BoxDecoration(
-                                                color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                                                borderRadius: BorderRadius.circular(6),
-                                              ),
-                                              child: Text(
-                                                'Settle Up',
-                                                style: theme.textTheme.labelMedium?.copyWith(
-                                                  color: theme.colorScheme.primary,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 11,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ]
                                       ],
                                     ),
                                   ],
+                                  ),
                                 ),
                               );
                             },
@@ -467,32 +451,6 @@ class _DuesScreenState extends ConsumerState<DuesScreen> {
     );
   }
 
-  Future<void> _settleUp(BuildContext context, WidgetRef ref, Due due, String uid) async {
-    try {
-      await FirebaseFirestore.instance
-          .collection('rooms')
-          .doc(due.roomId)
-          .collection('settlements')
-          .add({
-        'fromUid': uid,
-        'toUid': due.owedToId,
-        'amount': due.amount,
-        'status': 'pending', // Requires approval from receiver
-        'createdAt': FieldValue.serverTimestamp(),
-      });
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Settlement request sent!')),
-        );
-      }
-    } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to settle up: $e')),
-        );
-      }
-    }
-  }
 
   Future<void> _approveSettlement(BuildContext context, String roomId, String settlementId) async {
     try {

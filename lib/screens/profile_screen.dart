@@ -296,7 +296,7 @@ class ProfileScreen extends ConsumerWidget {
               child: Column(
                 children: [
                   Text(
-                    'Sajilo Share v2.4.1',
+                    'Sajilo Share v2.4.2',
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
                     ),

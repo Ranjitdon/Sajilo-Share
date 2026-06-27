@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../providers/auth_provider.dart';
 import '../providers/room_provider.dart';
 import '../utils/format_utils.dart';
@@ -27,6 +28,20 @@ class DueBreakdownScreen extends ConsumerWidget {
     final expensesAsync = ref.watch(roomExpensesProvider(roomId));
     final settlementsAsync = ref.watch(roomSettlementsProvider(roomId));
 
+    final duesAsync = ref.watch(userDuesProvider);
+    Due? specificDue;
+    if (duesAsync.hasValue) {
+      final dues = duesAsync.value ?? [];
+      try {
+        specificDue = dues.firstWhere((d) => 
+            d.roomId == roomId && 
+            ((d.owedById == user.uid && d.owedToId == otherUserId) || 
+             (d.owedToId == user.uid && d.owedById == otherUserId)));
+      } catch (_) {}
+    }
+
+    final iOwe = specificDue != null && specificDue.owedById == user.uid;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Due Breakdown'),
@@ -36,7 +51,48 @@ class DueBreakdownScreen extends ConsumerWidget {
           : (expensesAsync.hasError)
               ? Center(child: Text('Error: ${expensesAsync.error}'))
               : _buildLedger(context, theme, user.uid, expensesAsync.value ?? [], settlementsAsync.value ?? []),
+      bottomNavigationBar: (iOwe && specificDue != null) ? SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ElevatedButton(
+            onPressed: () => _settleUp(context, ref, specificDue!, user.uid),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+            ),
+            child: Text('Settle Up ₹${formatMoney(specificDue.amount)}'),
+          ),
+        ),
+      ) : null,
     );
+  }
+
+  Future<void> _settleUp(BuildContext context, WidgetRef ref, Due due, String uid) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('rooms')
+          .doc(due.roomId)
+          .collection('settlements')
+          .add({
+        'fromUid': uid,
+        'toUid': due.owedToId,
+        'amount': due.amount,
+        'status': 'pending',
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Settlement request sent for approval!')),
+        );
+        Navigator.of(context).pop();
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to settle up: $e')),
+        );
+      }
+    }
   }
 
   Widget _buildLedger(BuildContext context, ThemeData theme, String myUid, List<RoomExpense> expenses, List<Map<String, dynamic>> settlements) {

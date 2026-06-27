@@ -841,7 +841,7 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
                 final involvesMe = iOwe || iAmOwed;
                 final displayUid = involvesMe ? (iOwe ? due.owedToId : due.owedById) : due.owedById;
 
-                return Padding(
+                Widget rowContent = Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
                     children: [
@@ -892,6 +892,16 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
                     ],
                   ),
                 );
+
+                if (involvesMe) {
+                  return InkWell(
+                    onTap: () {
+                      context.push('/room/${due.roomId}/due-breakdown/$displayUid');
+                    },
+                    child: rowContent,
+                  );
+                }
+                return rowContent;
               },
             ),
           );
