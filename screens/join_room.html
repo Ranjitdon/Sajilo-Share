@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Join Room - FlatShare</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-secondary-fixed-variant": "#005236",
+                    "background": "#f8f9ff",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-container-high": "#dce9ff",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "tertiary-fixed": "#ffddb8",
+                    "secondary": "#006c49",
+                    "outline-variant": "#c7c4d7",
+                    "on-surface": "#0b1c30",
+                    "on-error": "#ffffff",
+                    "surface-container": "#e5eeff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-tint": "#494bd6",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#213145",
+                    "surface-variant": "#d3e4fe",
+                    "on-secondary-fixed": "#002113",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "on-primary-container": "#fffbff",
+                    "surface-container-highest": "#d3e4fe",
+                    "primary-container": "#6063ee",
+                    "tertiary": "#825100",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#00714d",
+                    "secondary-container": "#6cf8bb",
+                    "on-primary-fixed": "#07006c",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "on-surface-variant": "#464554",
+                    "surface-bright": "#f8f9ff",
+                    "inverse-primary": "#c0c1ff",
+                    "surface": "#f8f9ff",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-container-low": "#eff4ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "gutter": "16px",
+                    "container-margin": "20px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "title-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .digit-input:focus {
+            box-shadow: 0 0 0 4px rgba(73, 75, 214, 0.15);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-lg min-h-screen flex flex-col overflow-x-hidden">
+<!-- TopAppBar - Mapped from JSON -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-on-surface flex items-center px-container-margin h-16 w-full transition-colors duration-200 ease-in-out">
+<button aria-label="Go back" class="mr-4 p-2 rounded-full hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">arrow_back</span>
+</button>
+<h1 class="font-title-md text-title-md text-primary dark:text-primary-fixed-dim">Join Room</h1>
+</header>
+<main class="flex-1 flex flex-col items-center justify-center px-container-margin py-xl relative">
+<!-- Atmospheric Background Element -->
+<div class="absolute top-1/4 -right-24 w-64 h-64 bg-primary-container opacity-20 rounded-full blur-[100px] -z-10"></div>
+<div class="absolute bottom-1/4 -left-24 w-64 h-64 bg-secondary-container opacity-20 rounded-full blur-[100px] -z-10"></div>
+<section class="w-full max-w-md flex flex-col items-center">
+<!-- Visual Anchor -->
+<div class="mb-xl animate-float">
+<div class="w-20 h-20 rounded-2xl bg-primary-container flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-on-primary-container text-[40px]" style="font-variation-settings: 'FILL' 1;">group_add</span>
+</div>
+</div>
+<!-- Header Text -->
+<div class="text-center mb-xl">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile mb-sm text-on-surface">Enter Invite Code</h2>
+<p class="text-on-surface-variant font-body-sm max-w-[280px] mx-auto">Ask your roommate for the 6-digit code or scan their QR code to join the flat.</p>
+</div>
+<!-- Code Input Section -->
+<div class="w-full mb-lg">
+<div class="flex justify-center gap-2 md:gap-3 mb-4">
+<!-- Split Input Design for FS-XXXX style -->
+<div class="flex items-center gap-2">
+<div class="w-12 h-16 md:w-14 md:h-20 bg-surface-container rounded-xl border-2 border-outline-variant flex items-center justify-center">
+<span class="font-display-lg text-display-lg text-outline opacity-40">F</span>
+</div>
+<div class="w-12 h-16 md:w-14 md:h-20 bg-surface-container rounded-xl border-2 border-outline-variant flex items-center justify-center">
+<span class="font-display-lg text-display-lg text-outline opacity-40">S</span>
+</div>
+</div>
+<div class="flex items-center text-outline-variant px-1">
+<span class="font-display-lg text-display-lg">-</span>
+</div>
+<!-- Functional Inputs -->
+<div class="flex gap-2">
+<input class="digit-input w-12 h-16 md:w-14 md:h-20 text-center font-display-lg text-display-lg bg-surface border-2 border-primary rounded-xl focus:ring-0 focus:border-primary-container transition-all" maxlength="1" type="text" value="9"/>
+<input class="digit-input w-12 h-16 md:w-14 md:h-20 text-center font-display-lg text-display-lg bg-surface border-2 border-outline-variant rounded-xl focus:ring-0 focus:border-primary transition-all" maxlength="1" placeholder="·" type="text"/>
+<input class="digit-input w-12 h-16 md:w-14 md:h-20 text-center font-display-lg text-display-lg bg-surface border-2 border-outline-variant rounded-xl focus:ring-0 focus:border-primary transition-all" maxlength="1" placeholder="·" type="text"/>
+<input class="digit-input w-12 h-16 md:w-14 md:h-20 text-center font-display-lg text-display-lg bg-surface border-2 border-outline-variant rounded-xl focus:ring-0 focus:border-primary transition-all" maxlength="1" placeholder="·" type="text"/>
+</div>
+</div>
+<p class="text-error text-center font-label-md hidden" id="error-msg">Invalid code. Please try again.</p>
+</div>
+<!-- Primary Actions -->
+<div class="w-full space-y-md">
+<button class="w-full h-14 bg-primary text-on-primary font-title-md rounded-xl shadow-md active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
+                    Join Room
+                    <span class="material-symbols-outlined">chevron_right</span>
+</button>
+<div class="flex items-center gap-4 py-2">
+<div class="flex-1 h-[1px] bg-outline-variant"></div>
+<span class="font-label-md text-on-surface-variant">OR</span>
+<div class="flex-1 h-[1px] bg-outline-variant"></div>
+</div>
+<button class="w-full h-14 bg-surface-container-high text-primary font-title-md rounded-xl flex items-center justify-center gap-3 border border-primary/10 hover:bg-surface-variant transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">qr_code_scanner</span>
+                    Scan QR Code
+                </button>
+</div>
+<!-- Secondary Help -->
+<div class="mt-xl text-center">
+<p class="text-on-surface-variant font-body-sm">
+                    Don't have a room yet? <br/>
+<a class="text-primary font-title-md hover:underline" href="#">Create a new room</a>
+</p>
+</div>
+</section>
+<!-- Illustration / Background Context -->
+<div class="mt-xl md:mt-24 w-full max-w-sm glass-card border border-neutral-100 rounded-2xl p-md flex items-center gap-md shadow-sm">
+<div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A profile headshot of a friendly young professional woman smiling, soft studio lighting, minimalist background with pastel colors, high-end photography for a modern fintech app profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaHwp9FdA6F3fuOJeNE1LN_SW3z9OuBDPkFDPrOSZn9BKT_lsAYFXK0w4AfZF4_Yj5hpzahcHhG5YxYl99dtblROd4usEfR-uRek7bLOdqAxbpkfwUnNtyyyekh1YvMYuZNylfl9GmOGV0vaRSs8T2EDgwS641H0MepusfdlUDfgdHfKavcVw1NXMtzxmiAQqbpctWKaxkEy9f_M-b1z94kfnvLhnoCzpQNqz-K80bY4iXpg9yZvOsEiEvQvWc8OQ0fm2hYw2PNAw"/>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-on-surface-variant leading-tight">INVITED BY</p>
+<p class="font-title-md text-primary leading-tight">Sarah Jenkins</p>
+</div>
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-secondary-fixed flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A diverse group of happy roommates laughing together in a brightly lit, modern minimalist living room with clean white furniture and green plants, warm sunset lighting, editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU2xwKYRk28xzCucnlhal5_f-WObgRC5Kbp92hhTWT7L9ty61oYvS2jnK_PEuXF17KvzuevHW_QbSnFwp1N5xrxDkLl3XfDUNSMck2SxZ71b57BTFp61uUJrnN7AJHoC5zU-dCORlFxylpyF6ZXU-r65pMJajepJBVxTIbNamEIt-UgzCCxcGCwRUXXIf3kbvPLXm3w_0e59pkMrZpAMXMlSHBazpreIVs-5VrnoqrfrBcCRFUkDRQKl8BkRJYDh4e2mx2_nM5zrg"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-primary-fixed flex items-center justify-center">
+<span class="text-[10px] font-bold text-on-primary-fixed">+2</span>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Suppression Rule Applied (Transactional Task) -->
+<script>
+        // Simple Input Auto-focus Logic
+        const inputs = document.querySelectorAll('.digit-input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Micro-interaction for the button
+        const joinBtn = document.querySelector('button.bg-primary');
+        joinBtn.addEventListener('click', () => {
+            joinBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Joining...';
+            setTimeout(() => {
+                document.getElementById('error-msg').classList.remove('hidden');
+                joinBtn.innerHTML = 'Join Room <span class="material-symbols-outlined">chevron_right</span>';
+            }, 1500);
+        });
+    </script>
+</body></html>

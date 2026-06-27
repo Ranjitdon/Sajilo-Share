@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create Room - FlatShare</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-secondary-fixed-variant": "#005236",
+                    "background": "#f8f9ff",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-container-high": "#dce9ff",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "tertiary-fixed": "#ffddb8",
+                    "secondary": "#006c49",
+                    "outline-variant": "#c7c4d7",
+                    "on-surface": "#0b1c30",
+                    "on-error": "#ffffff",
+                    "surface-container": "#e5eeff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-tint": "#494bd6",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#213145",
+                    "surface-variant": "#d3e4fe",
+                    "on-secondary-fixed": "#002113",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "on-primary-container": "#fffbff",
+                    "surface-container-highest": "#d3e4fe",
+                    "primary-container": "#6063ee",
+                    "tertiary": "#825100",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#00714d",
+                    "secondary-container": "#6cf8bb",
+                    "on-primary-fixed": "#07006c",
+                    "tertiary-container": "#a36700",
+                    "surface-dim": "#cbdbf5",
+                    "primary-fixed": "#e1e0ff",
+                    "primary": "#4648d4",
+                    "outline": "#767586",
+                    "on-background": "#0b1c30",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "on-surface-variant": "#464554",
+                    "surface-bright": "#f8f9ff",
+                    "inverse-primary": "#c0c1ff",
+                    "surface": "#f8f9ff",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-container-low": "#eff4ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "gutter": "16px",
+                    "container-margin": "20px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "title-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen flex flex-col font-body-lg text-on-background">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-on-surface flex items-center px-container-margin h-16 w-full transition-colors duration-200 ease-in-out">
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-title-md text-title-md text-primary">Create Room</h1>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 max-w-lg mx-auto w-full px-container-margin py-lg space-y-lg">
+<!-- Hero Visual Section -->
+<div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-sm">
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10"></div>
+<div class="w-full h-full bg-cover bg-center" data-alt="A clean, minimalist apartment interior with floor-to-ceiling windows, soft sunlight streaming across a polished concrete floor, and modern indigo furniture. The atmosphere is calm and inviting, reflecting a premium fintech-inspired aesthetic with high white space and sophisticated professional lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBUYGPa4p9bsgD7NpzIHNLh1XTPFamfq0hTLDn007KpLLRm80v0h0Mo9D1BRWA_22FpnWhyXklLnXTjjSl26CFIm35Xz0Oec77GyK-EiYlz5blXV3y2k5_ca-IyK0Rfat_lsvyRxUGHgdKsjXeG_fqOvc91xq3RRkJsAvR-QyoPJHasVTqCihGKtdQCBjQaAW237Hsf0Ynj3pRv0qtvaJPeQFB9541KCWP6Sgk8v8qiFBYAhlwtdUA5hO6QqNNjop0quBF8TqUVOxs')"></div>
+<div class="absolute bottom-md left-md z-20">
+<span class="bg-primary text-on-primary px-3 py-1 rounded-full font-label-md text-label-md uppercase tracking-wider">New Workspace</span>
+</div>
+</div>
+<!-- Form Section -->
+<section class="space-y-xl">
+<!-- Room Name Input -->
+<div class="relative group">
+<label class="block font-label-md text-label-md text-outline mb-sm ml-xs transition-colors group-focus-within:text-primary" for="room-name">Room Name</label>
+<div class="relative">
+<input class="w-full px-md py-4 bg-surface-container-lowest border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none font-body-lg text-on-surface placeholder:text-outline-variant" id="room-name" placeholder="e.g., The Penthouse" type="text"/>
+<div class="absolute right-md top-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-outline-variant" data-icon="edit">edit</span>
+</div>
+</div>
+</div>
+<!-- Icon Selection -->
+<div class="space-y-md">
+<div class="flex justify-between items-end">
+<label class="font-label-md text-label-md text-outline ml-xs">Select Room Icon</label>
+<span class="font-label-md text-label-md text-primary" id="selected-icon-label">Home</span>
+</div>
+<div class="grid grid-cols-4 gap-gutter">
+<button class="icon-btn aspect-square rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-all flex items-center justify-center border-2 border-transparent ring-primary ring-offset-2" onclick="selectIcon(this, 'home')">
+<span class="material-symbols-outlined text-on-surface-variant text-2xl" data-icon="home" data-weight="fill">home</span>
+</button>
+<button class="icon-btn aspect-square rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-all flex items-center justify-center border-2 border-transparent" onclick="selectIcon(this, 'apartment')">
+<span class="material-symbols-outlined text-on-surface-variant text-2xl" data-icon="apartment">apartment</span>
+</button>
+<button class="icon-btn aspect-square rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-all flex items-center justify-center border-2 border-transparent" onclick="selectIcon(this, 'cottage')">
+<span class="material-symbols-outlined text-on-surface-variant text-2xl" data-icon="cottage">cottage</span>
+</button>
+<button class="icon-btn aspect-square rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-all flex items-center justify-center border-2 border-transparent" onclick="selectIcon(this, 'weekend')">
+<span class="material-symbols-outlined text-on-surface-variant text-2xl" data-icon="weekend">weekend</span>
+</button>
+<button class="icon-btn aspect-square rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-all flex items-center justify-center border-2 border-transparent" onclick="selectIcon(this, 'domain')">
+<span class="material-symbols-outlined text-on-surface-variant text-2xl" data-icon="domain">domain</span>
+</button>
+<button class="icon-btn aspect-square rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-all flex items-center justify-center border-2 border-transparent" onclick="selectIcon(this, 'bed')">
+<span class="material-symbols-outlined text-on-surface-variant text-2xl" data-icon="bed">bed</span>
+</button>
+<button class="icon-btn aspect-square rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-all flex items-center justify-center border-2 border-transparent" onclick="selectIcon(this, 'kitchen')">
+<span class="material-symbols-outlined text-on-surface-variant text-2xl" data-icon="kitchen">kitchen</span>
+</button>
+<button class="icon-btn aspect-square rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-all flex items-center justify-center border-2 border-transparent" onclick="selectIcon(this, 'deck')">
+<span class="material-symbols-outlined text-on-surface-variant text-2xl" data-icon="deck">deck</span>
+</button>
+</div>
+</div>
+<!-- Color Palette Selection -->
+<div class="space-y-md">
+<label class="block font-label-md text-label-md text-outline ml-xs">Accent Color</label>
+<div class="flex items-center justify-between bg-surface-container px-md py-md rounded-xl">
+<button class="color-btn w-10 h-10 rounded-full bg-primary ring-2 ring-offset-2 ring-primary transition-transform scale-110" onclick="selectColor(this, 'primary')"></button>
+<button class="color-btn w-10 h-10 rounded-full bg-secondary ring-0 ring-offset-2 ring-secondary transition-transform" onclick="selectColor(this, 'secondary')"></button>
+<button class="color-btn w-10 h-10 rounded-full bg-tertiary ring-0 ring-offset-2 ring-tertiary transition-transform" onclick="selectColor(this, 'tertiary')"></button>
+<button class="color-btn w-10 h-10 rounded-full bg-error ring-0 ring-offset-2 ring-error transition-transform" onclick="selectColor(this, 'error')"></button>
+<button class="color-btn w-10 h-10 rounded-full bg-primary-container ring-0 ring-offset-2 ring-primary-container transition-transform" onclick="selectColor(this, 'primary-container')"></button>
+</div>
+</div>
+</section>
+<!-- Spacer for FAB avoidance -->
+<div class="h-24"></div>
+</main>
+<!-- Bottom Action Area -->
+<div class="fixed bottom-0 left-0 w-full p-container-margin z-50 bg-gradient-to-t from-background via-background/90 to-transparent">
+<button class="w-full py-4 bg-primary text-on-primary rounded-xl font-title-md text-title-md shadow-lg shadow-primary/20 hover:bg-primary-container active:scale-[0.98] transition-all flex items-center justify-center gap-md">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+            Create Room
+        </button>
+</div>
+<!-- Micro-interactions Script -->
+<script>
+        function selectIcon(el, name) {
+            // Reset all icons
+            document.querySelectorAll('.icon-btn').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-primary', 'ring-offset-2', 'bg-primary/10');
+                btn.querySelector('span').style.fontVariationSettings = "'FILL' 0";
+                btn.querySelector('span').classList.remove('text-primary');
+                btn.querySelector('span').classList.add('text-on-surface-variant');
+            });
+            
+            // Highlight selected
+            el.classList.add('ring-2', 'ring-primary', 'ring-offset-2', 'bg-primary/10');
+            el.querySelector('span').style.fontVariationSettings = "'FILL' 1";
+            el.querySelector('span').classList.add('text-primary');
+            el.querySelector('span').classList.remove('text-on-surface-variant');
+            
+            // Update label
+            document.getElementById('selected-icon-label').textContent = name.charAt(0).toUpperCase() + name.slice(1);
+        }
+
+        function selectColor(el, type) {
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.classList.remove('ring-2', 'scale-110');
+            });
+            el.classList.add('ring-2', 'scale-110');
+        }
+
+        // Simple form validation micro-interaction
+        const input = document.getElementById('room-name');
+        const createBtn = document.querySelector('button.bg-primary');
+        
+        input.addEventListener('input', (e) => {
+            if (e.target.value.trim().length > 0) {
+                createBtn.classList.remove('opacity-50', 'grayscale');
+            } else {
+                createBtn.classList.add('opacity-50', 'grayscale');
+            }
+        });
+    </script>
+</body></html>

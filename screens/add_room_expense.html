@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Room Expense - FlatShare</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom hide scrollbar */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        input:focus ~ label,
+        input:not(:placeholder-shown) ~ label {
+            transform: translateY(-24px) scale(0.85);
+            color: #4648d4;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary": "#ffffff",
+                      "inverse-primary": "#c0c1ff",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#002113",
+                      "surface-container-low": "#eff4ff",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#fffbff",
+                      "primary": "#4648d4",
+                      "on-error": "#ffffff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "tertiary-container": "#a36700",
+                      "surface-tint": "#494bd6",
+                      "surface-bright": "#f8f9ff",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-surface": "#0b1c30",
+                      "on-error-container": "#93000a",
+                      "surface-container-high": "#dce9ff",
+                      "secondary-fixed-dim": "#4edea3",
+                      "outline-variant": "#c7c4d7",
+                      "on-tertiary-fixed": "#2a1700",
+                      "tertiary-fixed": "#ffddb8",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed": "#07006c",
+                      "primary-fixed": "#e1e0ff",
+                      "on-background": "#0b1c30",
+                      "surface-container-highest": "#d3e4fe",
+                      "tertiary": "#825100",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "surface-dim": "#cbdbf5",
+                      "on-secondary-fixed-variant": "#005236",
+                      "primary-container": "#6063ee",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "background": "#f8f9ff",
+                      "surface-variant": "#d3e4fe",
+                      "on-secondary-container": "#00714d",
+                      "primary-fixed-dim": "#c0c1ff",
+                      "outline": "#767586",
+                      "on-secondary": "#ffffff",
+                      "surface": "#f8f9ff",
+                      "on-tertiary-container": "#fffbff",
+                      "surface-container": "#e5eeff",
+                      "secondary-container": "#6cf8bb",
+                      "on-surface-variant": "#464554",
+                      "secondary": "#006c49",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed-variant": "#2f2ebe",
+                      "inverse-surface": "#213145"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "16px",
+                      "gutter": "16px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "xl": "32px",
+                      "base": "8px",
+                      "sm": "8px",
+                      "container-margin": "20px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "title-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-lg min-h-screen pb-24">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-surface-dim shadow-sm flex items-center justify-between px-gutter h-16 max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-title-md text-title-md text-on-surface">Add Room Expense</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</header>
+<main class="max-w-xl mx-auto px-container-margin py-lg space-y-lg">
+<!-- Amount Input Card -->
+<section class="bg-surface-container-lowest border border-neutral-100 rounded-xl p-md shadow-[0_4px_12px_0_rgba(0,0,0,0.05)]">
+<div class="relative mt-4">
+<span class="absolute left-0 bottom-3 text-display-lg font-display-lg text-primary">₹</span>
+<input class="w-full bg-transparent border-b-2 border-outline-variant focus:border-primary outline-none pt-4 pb-2 pl-8 text-display-lg font-display-lg text-on-surface transition-colors placeholder:text-outline-variant" id="amountInput" placeholder="0" step="0.01" type="number"/>
+<label class="absolute left-8 top-0 text-label-md font-label-md text-outline uppercase tracking-wider">Amount</label>
+</div>
+</section>
+<!-- Category Picker -->
+<section class="space-y-sm">
+<h2 class="text-label-md font-label-md text-outline px-1">CATEGORY</h2>
+<div class="flex gap-sm overflow-x-auto no-scrollbar pb-2">
+<button class="category-chip flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-primary-container text-on-primary-container border-2 border-primary transition-all" data-category="Food">
+<span class="material-symbols-outlined filled-icon text-[20px]">restaurant</span>
+<span class="text-body-sm font-semibold">Food</span>
+</button>
+<button class="category-chip flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant border-2 border-transparent hover:bg-surface-container-highest transition-all" data-category="Groceries">
+<span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+<span class="text-body-sm font-semibold">Groceries</span>
+</button>
+<button class="category-chip flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant border-2 border-transparent hover:bg-surface-container-highest transition-all" data-category="Rent">
+<span class="material-symbols-outlined text-[20px]">home</span>
+<span class="text-body-sm font-semibold">Rent</span>
+</button>
+<button class="category-chip flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant border-2 border-transparent hover:bg-surface-container-highest transition-all" data-category="Bills">
+<span class="material-symbols-outlined text-[20px]">receipt</span>
+<span class="text-body-sm font-semibold">Bills</span>
+</button>
+<button class="category-chip flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant border-2 border-transparent hover:bg-surface-container-highest transition-all" data-category="Others">
+<span class="material-symbols-outlined text-[20px]">dashboard_customize</span>
+<span class="text-body-sm font-semibold">Others</span>
+</button>
+</div>
+</section>
+<!-- Details Grid -->
+<section class="grid grid-cols-2 gap-md">
+<div class="relative group">
+<input class="peer w-full h-14 bg-surface-container-lowest border border-outline-variant rounded-xl px-md pt-4 focus:border-primary focus:ring-0 outline-none text-body-lg" type="date" value="2023-10-27"/>
+<label class="absolute left-3 top-1 text-label-md font-label-md text-outline pointer-events-none transition-all peer-focus:text-primary">Date</label>
+</div>
+<div class="relative group">
+<input class="peer w-full h-14 bg-surface-container-lowest border border-outline-variant rounded-xl px-md pt-4 focus:border-primary focus:ring-0 outline-none text-body-lg placeholder:opacity-0 focus:placeholder:opacity-100" placeholder="e.g. Dinner" type="text"/>
+<label class="absolute left-3 top-1 text-label-md font-label-md text-outline pointer-events-none transition-all peer-focus:text-primary">Note</label>
+</div>
+</section>
+<!-- Paid By Selector -->
+<section class="space-y-sm">
+<h2 class="text-label-md font-label-md text-outline px-1">PAID BY</h2>
+<div class="flex gap-md overflow-x-auto no-scrollbar py-1">
+<div class="member-selector flex flex-col items-center gap-2 flex-shrink-0 cursor-pointer group" data-member="Karan">
+<div class="w-16 h-16 rounded-full border-4 border-primary ring-2 ring-primary-container overflow-hidden p-0.5 transition-all active:scale-90">
+<img class="w-full h-full object-cover rounded-full" data-alt="Close-up portrait of a young Indian man named Karan with a friendly smile, wearing a casual indigo linen shirt. Modern minimalist photography style with soft natural lighting and a neutral blurred background, representing a fintech professional persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnANF5b7MW6DQfgf9_dMpULCDkz__uJ8XkjiUmnNNUHsYk6q-1tLXGD1APYGDHWVefPv8dx1QvGDrK-Gwu_bRXAMBq18bzaKmvaLxYLTEKAoMwQbX9YSIqvYkd4k-t8wQfXDwXDuV-BiSnc_f1C8aDP4k80EAFFj-_RPN1tG8Kge8bGbOQjUhB3liROas_b5VWbOn4aRl77jKHh5Apc5KgZeCnE_ltpBFPkFy44bifzDc1TD7MVWeXnglAuzbRWba-ZpMTHAUMlug"/>
+</div>
+<span class="text-body-sm font-semibold text-primary">You</span>
+</div>
+<div class="member-selector flex flex-col items-center gap-2 flex-shrink-0 cursor-pointer group" data-member="Sagar">
+<div class="w-16 h-16 rounded-full border-2 border-transparent overflow-hidden hover:border-outline-variant transition-all active:scale-90">
+<img class="w-full h-full object-cover rounded-full grayscale hover:grayscale-0" data-alt="Portrait of a creative young man named Sagar with glasses and a stylish haircut, wearing a teal colored sweater. Professional studio lighting with a clean light-mode aesthetic and soft shadows, portraying a tech-savvy roommate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfbAdxo5KMbanMvW2c8XeBFpKnNSIUv_Ld27aAyLre-dWkAab_8tcFqdcRe9_9UliGIATeYc3GyoiQ1tSuJYCt3w445q0itD3wAXgY9TBzshnHgu2fQI08d9ChZXvw976dVAMCJgXW2BgHSxYiH6aqdegIu22FrJY_carFomkuCR1_BZ4NemVojoBAFhj10BY-xUAB-smZlw_WdohErcUcdv0oOJXllpN4GRT3qBbp0aIlPMOnbJuEGckwvh1_djDXp9AJ0X3wNfY"/>
+</div>
+<span class="text-body-sm font-medium text-on-surface-variant">Sagar</span>
+</div>
+<div class="member-selector flex flex-col items-center gap-2 flex-shrink-0 cursor-pointer group" data-member="Ananya">
+<div class="w-16 h-16 rounded-full border-2 border-transparent overflow-hidden hover:border-outline-variant transition-all active:scale-90">
+<img class="w-full h-full object-cover rounded-full grayscale hover:grayscale-0" data-alt="Professional portrait of a young woman named Ananya with long dark hair, wearing a white blazer against a soft indigo background. Modern fintech-inspired visual style with bright, even lighting and high clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKHrT19x75gYRBiMJYroJHh7eIR1GmBktOaIo7cVIEMRDH6lgp-f4TKwoiNXd6_j22SnRks7fjgI5nFj6QT8W-CMH8zzrbtsZ_fRUzCa5C1Jz1dMKKAVcaKOvuyW8Uh63eUeh7KzpZN8T3SJSbCgPq16-yOfAXJFE0gswFJFByKR4pG-QOXUGECAea07mx_uJFdqq-ZkCuH3B_Fbjs1hh_rhB92FNvwsTX5sb04QjMg09-TmiqiYgeRQTrCNaubJUnR_kuW0GVHQU"/>
+</div>
+<span class="text-body-sm font-medium text-on-surface-variant">Ananya</span>
+</div>
+</div>
+</section>
+<!-- Split Between Section -->
+<section class="space-y-sm">
+<div class="flex items-center justify-between px-1">
+<h2 class="text-label-md font-label-md text-outline uppercase tracking-wider">Split Between</h2>
+<span class="text-primary font-bold text-body-sm bg-primary-fixed px-3 py-1 rounded-full" id="splitPreview">₹0 per person</span>
+</div>
+<div class="bg-surface-container-lowest border border-neutral-100 rounded-2xl overflow-hidden shadow-sm">
+<!-- Karan -->
+<label class="flex items-center justify-between p-md hover:bg-surface-container transition-colors cursor-pointer border-b border-outline-variant/30">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Small thumbnail avatar of Karan, a young man with a casual style. High-quality digital photography with a clean minimalist background using a soft indigo and white color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR4HktN-8AZkdqDzX5yAw7eqtyQUEVrToD1h9ZWJzLK7pIQXk_5pYsKeDh1fGkY3ZjpRH7CKPsXe93KLWAqJc8LLEieE5C38DYl8d6vtkgQTaNvBN4U0V21gZs2xjMKq__b7AHfVc6zICUUK3CoduxU752SPvWOsMCM52cTtBuQAiKcExFFIeuTgUBmfX4SPaY_30dSzLMirouc3wkq6_PvzuiLgc7p-lnDyB_NW4s58L6HhcJ_r-SVPNJWsNB934TC7oXNaSYD3k"/>
+</div>
+<span class="text-body-lg font-medium text-on-surface">Karan (You)</span>
+</div>
+<input checked="" class="split-checkbox w-6 h-6 rounded-md border-outline-variant text-primary focus:ring-primary transition-all" type="checkbox"/>
+</label>
+<!-- Sagar -->
+<label class="flex items-center justify-between p-md hover:bg-surface-container transition-colors cursor-pointer border-b border-outline-variant/30">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Small thumbnail avatar of Sagar, showing a smiling young man with glasses. Clean studio lighting with soft shadows, consistent with a modern fintech application interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoO3SOcJ8l_T3TzNU6G2gt7Jn3lJL3CLOZkJxPHHbads1P10CoJr6CPGQSGRv35tjAeSORArihi0JzkJVRihTqLucnJ6PL6GQg1nTyazab8FDm8l3zHh8mwIgvNKRnJc5ddNo9J1Kj-69pgf4W92AHUtBB6WYYBVpCzuCXB-3Q-H9YwKOZt0Y3CPa2GOAfjM7GOtrxkG_vT9l-AyqSOX-MyMMbOIBBO485G2UdMXPX3jWbSek2-LeIflcqJGlvhurxbLtHDrLpHik"/>
+</div>
+<span class="text-body-lg font-medium text-on-surface">Sagar</span>
+</div>
+<input checked="" class="split-checkbox w-6 h-6 rounded-md border-outline-variant text-primary focus:ring-primary transition-all" type="checkbox"/>
+</label>
+<!-- Ananya -->
+<label class="flex items-center justify-between p-md hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Small thumbnail avatar of Ananya, a young professional woman. Bright light-mode aesthetic with a soft pastel indigo background, high resolution and modern feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBJDY-rAbbsE5IAX5Qb-e69LZGxQrhi7HGhWoMF1NMVMTucEXlN6Zjh1m6UWXQvl-Hg94PQeDHNcxTaznI67rsTOeQzf_7rrkVn7n8HdJrk7yEILxUu2IYR1X3PyIRLl4dGQbkVvxo30jvpAnL7v0fW_BanezhnYxw5KkTU2RbkvQRl2CAQclr78Hv_qnspY_c6QXD04TTB2aG9CbFBAEdJWcBvK_9gUkd7L7D7OiLwsi-l1ubYNn1ik6cEA41fWVqMQ50KnSUNBM"/>
+</div>
+<span class="text-body-lg font-medium text-on-surface">Ananya</span>
+</div>
+<input checked="" class="split-checkbox w-6 h-6 rounded-md border-outline-variant text-primary focus:ring-primary transition-all" type="checkbox"/>
+</label>
+</div>
+</section>
+</main>
+<!-- Bottom Actions -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-lowest p-md flex gap-md border-t border-outline-variant/20 max-w-7xl mx-auto left-1/2 -translate-x-1/2 z-50">
+<button class="flex-1 py-4 rounded-xl border border-outline text-on-surface-variant font-bold text-body-lg active:scale-95 transition-transform">
+            Cancel
+        </button>
+<button class="flex-[2] py-4 rounded-xl bg-primary text-on-primary font-bold text-body-lg shadow-lg shadow-primary/20 active:scale-95 transition-all hover:bg-primary-container" id="saveButton">
+            Save Expense
+        </button>
+</div>
+<script>
+        const amountInput = document.getElementById('amountInput');
+        const splitCheckboxes = document.querySelectorAll('.split-checkbox');
+        const splitPreview = document.getElementById('splitPreview');
+        const categoryChips = document.querySelectorAll('.category-chip');
+        const memberSelectors = document.querySelectorAll('.member-selector');
+
+        function updateSplit() {
+            const amount = parseFloat(amountInput.value) || 0;
+            const checkedCount = Array.from(splitCheckboxes).filter(cb => cb.checked).length;
+            
+            if (checkedCount === 0) {
+                splitPreview.textContent = '₹0 per person';
+                return;
+            }
+            
+            const perPerson = (amount / checkedCount).toFixed(2);
+            splitPreview.textContent = `₹${perPerson} per person`;
+            
+            // Animation effect for preview
+            splitPreview.classList.add('scale-110');
+            setTimeout(() => splitPreview.classList.remove('scale-110'), 200);
+        }
+
+        amountInput.addEventListener('input', updateSplit);
+        splitCheckboxes.forEach(cb => cb.addEventListener('change', updateSplit));
+
+        // Category Selection Logic
+        categoryChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                categoryChips.forEach(c => {
+                    c.classList.remove('bg-primary-container', 'text-on-primary-container', 'border-primary');
+                    c.classList.add('bg-surface-container-high', 'text-on-surface-variant', 'border-transparent');
+                    c.querySelector('.material-symbols-outlined').classList.remove('filled-icon');
+                });
+                chip.classList.add('bg-primary-container', 'text-on-primary-container', 'border-primary');
+                chip.classList.remove('bg-surface-container-high', 'text-on-surface-variant', 'border-transparent');
+                chip.querySelector('.material-symbols-outlined').classList.add('filled-icon');
+            });
+        });
+
+        // Member Selector Logic (Paid By)
+        memberSelectors.forEach(selector => {
+            selector.addEventListener('click', () => {
+                memberSelectors.forEach(s => {
+                    const imgContainer = s.querySelector('div');
+                    const text = s.querySelector('span');
+                    const img = s.querySelector('img');
+                    
+                    imgContainer.classList.remove('border-primary', 'ring-2', 'ring-primary-container', 'border-4');
+                    imgContainer.classList.add('border-2', 'border-transparent');
+                    text.classList.remove('text-primary', 'font-semibold');
+                    text.classList.add('text-on-surface-variant', 'font-medium');
+                    img.classList.add('grayscale');
+                });
+                
+                const activeImgContainer = selector.querySelector('div');
+                const activeText = selector.querySelector('span');
+                const activeImg = selector.querySelector('img');
+                
+                activeImgContainer.classList.add('border-primary', 'ring-2', 'ring-primary-container', 'border-4');
+                activeImgContainer.classList.remove('border-2', 'border-transparent');
+                activeText.classList.add('text-primary', 'font-semibold');
+                activeText.classList.remove('text-on-surface-variant', 'font-medium');
+                activeImg.classList.remove('grayscale');
+            });
+        });
+
+        // Initial update
+        updateSplit();
+
+        // Save Button Interaction
+        document.getElementById('saveButton').addEventListener('click', function() {
+            this.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span>';
+            setTimeout(() => {
+                this.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Success';
+                this.classList.replace('bg-primary', 'bg-secondary');
+            }, 1000);
+        });
+    </script>
+</body></html>

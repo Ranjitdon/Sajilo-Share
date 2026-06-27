@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FlatShare - Add Personal Expense</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#c0c1ff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#002113",
+                    "surface-container-low": "#eff4ff",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#fffbff",
+                    "primary": "#4648d4",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "tertiary-container": "#a36700",
+                    "surface-tint": "#494bd6",
+                    "surface-bright": "#f8f9ff",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-surface": "#0b1c30",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#dce9ff",
+                    "secondary-fixed-dim": "#4edea3",
+                    "outline-variant": "#c7c4d7",
+                    "on-tertiary-fixed": "#2a1700",
+                    "tertiary-fixed": "#ffddb8",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#07006c",
+                    "primary-fixed": "#e1e0ff",
+                    "on-background": "#0b1c30",
+                    "surface-container-highest": "#d3e4fe",
+                    "tertiary": "#825100",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-dim": "#cbdbf5",
+                    "on-secondary-fixed-variant": "#005236",
+                    "primary-container": "#6063ee",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "background": "#f8f9ff",
+                    "surface-variant": "#d3e4fe",
+                    "on-secondary-container": "#00714d",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "outline": "#767586",
+                    "on-secondary": "#ffffff",
+                    "surface": "#f8f9ff",
+                    "on-tertiary-container": "#fffbff",
+                    "surface-container": "#e5eeff",
+                    "secondary-container": "#6cf8bb",
+                    "on-surface-variant": "#464554",
+                    "secondary": "#006c49",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "inverse-surface": "#213145"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "gutter": "16px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "xl": "32px",
+                    "base": "8px",
+                    "sm": "8px",
+                    "container-margin": "20px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "title-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-chip {
+            background-color: #6063ee !important;
+            color: #ffffff !important;
+        }
+        /* Custom scrollbar for category picker */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface w-full top-0 sticky shadow-sm z-50">
+<div class="flex items-center justify-between px-gutter h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-title-md text-title-md text-on-surface">Add Expense</h1>
+</div>
+<button class="hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 w-full max-w-md mx-auto px-container-margin py-lg pb-32">
+<div class="space-y-lg">
+<!-- Amount Input Section -->
+<section class="text-center py-xl">
+<label class="font-label-md text-label-md text-outline mb-sm block uppercase tracking-widest">Amount</label>
+<div class="relative inline-flex items-center justify-center">
+<span class="font-display-lg text-display-lg text-primary mr-2">₹</span>
+<input autofocus="" class="bg-transparent border-none focus:ring-0 font-display-lg text-display-lg text-on-surface w-40 text-center placeholder-outline-variant" placeholder="0" type="number"/>
+</div>
+</section>
+<!-- Category Picker -->
+<section>
+<h2 class="font-label-md text-label-md text-on-surface-variant mb-md uppercase tracking-wider">Select Category</h2>
+<div class="flex overflow-x-auto gap-md no-scrollbar pb-xs">
+<!-- Category Chips -->
+<button class="flex flex-col items-center gap-2 group active:scale-90 transition-all duration-300">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary group-[.active]:bg-primary group-[.active]:text-on-primary active-chip active">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Food</span>
+</button>
+<button class="flex flex-col items-center gap-2 group active:scale-90 transition-all duration-300">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Rent</span>
+</button>
+<button class="flex flex-col items-center gap-2 group active:scale-90 transition-all duration-300">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Utilities</span>
+</button>
+<button class="flex flex-col items-center gap-2 group active:scale-90 transition-all duration-300">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Transport</span>
+</button>
+<button class="flex flex-col items-center gap-2 group active:scale-90 transition-all duration-300">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Shopping</span>
+</button>
+<button class="flex flex-col items-center gap-2 group active:scale-90 transition-all duration-300">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Other</span>
+</button>
+</div>
+</section>
+<!-- Form Fields -->
+<section class="space-y-md">
+<!-- Date Picker -->
+<div class="relative group">
+<label class="absolute -top-2 left-3 bg-background px-1 text-label-md font-label-md text-primary z-10">Date</label>
+<div class="flex items-center border border-outline-variant rounded-xl p-md focus-within:border-primary focus-within:border-2 transition-all">
+<span class="material-symbols-outlined text-outline mr-md" data-icon="calendar_today">calendar_today</span>
+<input class="w-full bg-transparent border-none p-0 text-body-lg font-body-lg focus:ring-0 text-on-surface" type="date" value="2023-10-27"/>
+</div>
+</div>
+<!-- Description -->
+<div class="relative group">
+<label class="absolute -top-2 left-3 bg-background px-1 text-label-md font-label-md text-outline group-focus-within:text-primary z-10 transition-colors">Description</label>
+<div class="flex items-start border border-outline-variant rounded-xl p-md focus-within:border-primary focus-within:border-2 transition-all">
+<span class="material-symbols-outlined text-outline mr-md mt-1" data-icon="description">description</span>
+<textarea class="w-full bg-transparent border-none p-0 text-body-lg font-body-lg focus:ring-0 text-on-surface placeholder-outline-variant resize-none" placeholder="What was this for?" rows="3"></textarea>
+</div>
+</div>
+<!-- Attach Receipt -->
+<button class="w-full border-2 border-dashed border-outline-variant rounded-xl p-lg flex flex-col items-center justify-center gap-2 text-outline hover:border-primary hover:text-primary hover:bg-primary/5 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-3xl" data-icon="add_a_photo">add_a_photo</span>
+<span class="font-label-md text-label-md">Attach Receipt</span>
+</button>
+</section>
+</div>
+</main>
+<!-- Floating Save Button Container -->
+<div class="fixed bottom-0 left-0 w-full p-container-margin bg-gradient-to-t from-background via-background/95 to-transparent z-40">
+<div class="max-w-md mx-auto">
+<button class="w-full bg-primary text-on-primary font-title-md text-title-md py-md rounded-xl shadow-lg hover:shadow-xl active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="check">check</span>
+                Save Expense
+            </button>
+</div>
+</div>
+<!-- Script for simple UI logic -->
+<script>
+        // Simple script to handle category selection visualization
+        const categoryButtons = document.querySelectorAll('section div.flex.overflow-x-auto button');
+        categoryButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryButtons.forEach(b => {
+                    b.querySelector('div').classList.remove('active-chip', 'bg-primary', 'text-on-primary');
+                    b.querySelector('div').classList.add('bg-surface-container-high', 'text-primary');
+                });
+                const iconContainer = btn.querySelector('div');
+                iconContainer.classList.add('active-chip');
+                iconContainer.classList.remove('bg-surface-container-high', 'text-primary');
+            });
+        });
+    </script>
+</body></html>

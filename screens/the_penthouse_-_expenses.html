@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Penthouse - Expenses</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#0b1c30",
+                    "secondary-container": "#6cf8bb",
+                    "on-secondary-container": "#00714d",
+                    "surface-container": "#e5eeff",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-container-low": "#eff4ff",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-primary-fixed": "#07006c",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#e1e0ff",
+                    "surface-dim": "#cbdbf5",
+                    "secondary": "#006c49",
+                    "on-secondary-fixed": "#002113",
+                    "on-surface-variant": "#464554",
+                    "outline": "#767586",
+                    "on-primary-container": "#fffbff",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "surface-variant": "#d3e4fe",
+                    "surface-bright": "#f8f9ff",
+                    "surface-tint": "#494bd6",
+                    "on-tertiary-container": "#fffbff",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "inverse-primary": "#c0c1ff",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#dce9ff",
+                    "background": "#f8f9ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-surface": "#0b1c30",
+                    "primary": "#4648d4",
+                    "inverse-surface": "#213145",
+                    "tertiary": "#825100",
+                    "secondary-fixed-dim": "#4edea3",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "tertiary-container": "#a36700",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#6063ee",
+                    "outline-variant": "#c7c4d7",
+                    "tertiary-fixed": "#ffddb8",
+                    "surface": "#f8f9ff",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "xs": "4px",
+                    "base": "8px",
+                    "lg": "24px",
+                    "container-margin": "20px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "title-md": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .active-tab-indicator {
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #4648d4;
+            border-radius: 3px 3px 0 0;
+        }
+        .custom-shadow {
+            box-shadow: 0 4px 12px rgba(11, 28, 48, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface pb-24">
+<!-- Top App Bar -->
+<header class="bg-surface sticky top-0 z-40 w-full flex justify-between items-center px-container-margin py-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary cursor-pointer" onclick="history.back()">arrow_back</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">FlatShare</span>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">notifications</span>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high ring-2 ring-primary/10">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a young adult with a friendly expression, captured in soft, natural window lighting. The background is a clean, minimalist interior with neutral tones and a hint of indoor greenery, reflecting a modern living aesthetic. High-quality photography with shallow depth of field and a focus on clarity and trust." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3ojQkhTXgnSY7ZFmZlvFDUXhIDs6yXJ09s6t58IqSCQnDinMJZ7ZOQ-mrlydWm-vgb9T3Yn0uv_MwyS6yXe5ymsyLN5gdlwpzg2E1_GgrF-tGyrYDusMGJeFAVm4_r3XPeTGGOezQG1K-ObVaEssRVan4pqU7PkxbWeHnxyOwtZJW4aPEWAlUiGWq9ZGawE6-KcxIC2bj-8qwG1-j1AsTeHEhIv8NFGpznotCou55lfTtr6cKXbdtmgQ6wAsT8LvdSQrNTwckFRo"/>
+</div>
+</div>
+</header>
+<main class="px-container-margin">
+<!-- Room Hero Section -->
+<div class="mt-lg mb-lg">
+<div class="relative w-full h-40 rounded-xl overflow-hidden custom-shadow mb-md">
+<img class="w-full h-full object-cover" data-alt="An ultra-modern luxury penthouse living room with floor-to-ceiling windows overlooking a sprawling urban cityscape at dusk. The interior features minimalist furniture, warm ambient lighting, and high-end finishes like marble floors and designer light fixtures. The mood is sophisticated, airy, and premium, using a palette of soft blues, whites, and deep wood tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFiOsHyUZ2cbLS6DTQcoFq04MafcQvSjg2afen8v-kiHcFXdV67K9VnrzpRDIjhqkac7rGIDNk2or32t1CqM2Lj1aGk8ub9tj5MYR2Q-MkdKwaxvSzJhC_WTmn1rv_eWLTcrWza9E3L-B79jCQ0MXKvGd5o4B9YLZnh0Z8ITny1OQded3Kgwg-TF8QgJNoya9LGoQNueVWfsiQD_NA70ExQ2761V6FP8Hrzl-mBCH-kDwM9NHhmlxGPA2qXDxPN9qDl3Z_i4_F0ks"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/60 to-transparent"></div>
+<div class="absolute bottom-md left-md">
+<h1 class="text-surface font-headline-lg-mobile text-headline-lg-mobile font-bold">The Penthouse</h1>
+<p class="text-surface/80 font-body-sm text-body-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                        Skyline Towers, Floor 42
+                    </p>
+</div>
+</div>
+<!-- Summary Stats Bento -->
+<div class="grid grid-cols-2 gap-md">
+<div class="bg-primary-container p-md rounded-xl text-on-primary-container">
+<p class="font-label-md text-label-md uppercase opacity-80">Total Spent</p>
+<p class="font-title-md text-title-md mt-xs font-bold">₹58,400</p>
+</div>
+<div class="bg-secondary-container p-md rounded-xl text-on-secondary-container">
+<p class="font-label-md text-label-md uppercase opacity-80">Your Balance</p>
+<p class="font-title-md text-title-md mt-xs font-bold">+₹12,250</p>
+</div>
+</div>
+</div>
+<!-- Internal Tabs -->
+<nav class="flex border-b border-outline-variant mb-lg overflow-x-auto no-scrollbar">
+<button class="relative px-md py-sm font-label-md text-label-md text-primary flex-shrink-0">
+                Expenses
+                <div class="active-tab-indicator"></div>
+</button>
+<button class="px-md py-sm font-label-md text-label-md text-on-surface-variant opacity-60 flex-shrink-0">Dues</button>
+<button class="px-md py-sm font-label-md text-label-md text-on-surface-variant opacity-60 flex-shrink-0">Analytics</button>
+<button class="px-md py-sm font-label-md text-label-md text-on-surface-variant opacity-60 flex-shrink-0">Members</button>
+</nav>
+<!-- Expense List -->
+<section class="flex flex-col gap-md">
+<div class="flex justify-between items-center mb-xs">
+<h3 class="font-title-md text-title-md text-on-surface">Recent Expenses</h3>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">filter_list</span>
+</div>
+<!-- Expense 1: Rent -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-neutral-100 custom-shadow flex flex-col gap-sm transition-transform active:scale-95 duration-150">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">home</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface">Rent</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Paid by <span class="font-semibold text-primary">You</span></p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-title-md text-title-md font-bold text-on-surface">₹45,000</p>
+<p class="font-label-md text-label-md text-secondary font-bold">Owed to you</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-xs pt-sm border-t border-outline-variant/30">
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" data-alt="Minimalist abstract avatar of a person with stylish glasses, warm lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUQxEwx_GG1LWLWsbILnEwP2Fh6wFGWMCEjYiQHVxMeoTr43yCSm43l-fNEVYA0xlSAHaOPG2ccFpRTGqn7r4rWJZmldw33nWw7N_A7tet6umeZBRadLO5OpY_u1oNg3cROWXnJVoGb6ScJGFj2Xe78m1Il33fyxagA7WtwDPXBvsumHDMY-8ahwhWP0uC5uTdWYhwss_TMtZfcEbRixyOhEEtkpoytGleoLJjDUkM0NcL_cVmx0upDeROAOkJi166NcK8nAFpJ9c"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" data-alt="Portrait of a diverse roommate with a friendly smile, clean minimalist background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwX3Lm-mhNUgD2bPVviQE3919_WcxBVLKwb3ufe27iPeDroBUl0yaz44X4oZJJ6ew8fJUlmmiRRvDnov430G8k7JI3_qYrnARXwN_bBdDA_wDxal9yZFOjXcBvrno_jBRhlhp66QD-FXRDM257dnslaX6XytI5Z0LljTzhb-dlfqdWdhc8OYIYzbtfY2TYwAZTQi6UKN0aGlyVs0MXGzwPD32LytlI0o-MSxg-TGEHcF5IcA93DzEiOYkn9ZFnT3P8BLYduiOkbr4"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" data-alt="Candid shot of a young professional in a light-filled modern kitchen." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXUsPjEKcwPVJLWY69CZzIE1D8488ijsL8D7VbkaC9qj-4hKe_oVsc30BH52E4fqMzJcn89Oriwtu-9r5gJhBk2b8nmDj0QrKcPe2uTMWhVmouC6z8hau0gyHqLre7ZTH3R0dv8jFVjgCDk6gvUyBj7FCBDPbGJINARKNBFgeWhualoV-c7KaprVi9r8VFxbRf69XMlP0bcmV_ipIGp_FfPrjvb3SlEjyXJvmPClv9tJEiYz-ecVmjIswwuwJ_7B1MCTqMo0UNFRM"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high flex items-center justify-center text-on-surface-variant text-[10px] font-bold">+1</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Yesterday, 10:30 PM</span>
+</div>
+</div>
+<!-- Expense 2: Electricity -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-neutral-100 custom-shadow flex flex-col gap-sm transition-transform active:scale-95 duration-150">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed-dim/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">bolt</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface">Electricity</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Paid by <span class="font-semibold text-on-surface">Sagar</span></p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-title-md text-title-md font-bold text-on-surface">₹3,200</p>
+<p class="font-label-md text-label-md text-error font-bold">You owe ₹800</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-xs pt-sm border-t border-outline-variant/30">
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" data-alt="Close-up portrait of a young man with a casual style, warm golden hour lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_vZhljsAjGuGcOzqeB57BB-rFlop4CD3jXBDHYWpI9JMIN6-yfu8sykPldzIpVT19n-eZHYFpJpehmpizdg8cehHHldDSM3IjW1NvniMoV7ELt4Z5wJ8Grq4KDgtdNY0pLzN31VVAa0teviQZt3O2cB-336aZgK55ftG0vpyFc1ZZ6ddUzUHAsKxxK1so6MOCqzt9RbnPl-zXA00v7JpEJ53RKKfnbxINO-bPRvCBdsG987sK1GbvwCcaGgKKjt6sUYgbU09n0X4"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" data-alt="Diverse young adult looking thoughtfully away, soft focus background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkr2Lw6DkEiP4lCrgDGW_bEpCzGjx80pmKQZkMsryG4hT7o2CPc3xNSNRtUyrOMVPoalMYY2WNp96qilx6rdadieALeTlSyEVD27EO7nf1InpFUx9l46i0PCTIzbqJlfdLgfWeuJN_WqoKuIcpqa5Uk4oOH8NDHX76HQjQ1Wu914AXYAUUQQbSV8m4s4b_eddzhNqp-ZVhSkHh-DKsT5z7_HC1ucTdkiJuH7gWRPuvq_US5BlwSuN8cknR6znbuL2NtfkBdjguXnY"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" data-alt="Professional profile photo of a roommate, modern office setting, bright aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4JBD81uUmVh4b7OJspHrsmF1EYBN9V35VRVmoZ3MRLNyC2Acd1n51_J-MX6e8er16x3q265SOgNDXinI0SS75m0csznDGLsHj3h2cr0rtXswrQGvwGvWnt03TBP5h-tusqybjwDTE3fMdsDRCRcun4EYFX96TA7Q1YNU2ZuCT5E3tCZkcUzQE97s_sFlS9sexxNLkgdhRM5BAkXF-NuJPGVixC5qmTuWsQ38WY49kcffra0GoQY_vX6HYIso1Mo2uTVhfGvQhyTw"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high flex items-center justify-center text-on-surface-variant text-[10px] font-bold">+1</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">4 Oct, 2:15 PM</span>
+</div>
+</div>
+<!-- Expense 3: Groceries (Contextual Addition) -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-neutral-100 custom-shadow flex flex-col gap-sm opacity-80">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">shopping_cart</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface">Groceries</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Paid by <span class="font-semibold text-on-surface">Ananya</span></p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-title-md text-title-md font-bold text-on-surface">₹2,450</p>
+<p class="font-label-md text-label-md text-error font-bold">You owe ₹612</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-xs pt-sm border-t border-outline-variant/30">
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" data-alt="Minimalist lifestyle portrait of a young woman with a relaxed vibe, indoor soft lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHuTHuZlmNt8yUL0n7PjB40WCm2JjTycupmyFnLblCdtHSRcGy2aBtsDRUkYeb-nYqCXplTozq-lOz8JhVPrnErh_Ng2Cf2tL_dCmr35jcF5gRwBlydSGmO1ZL0NloQjuk3KpuojJkJRnxZDpi-57-LJiF4_R4sIHwZpGyG6eeo3L29hoSl-nYLnXilhCA3ZGHpMN0e7UIMEnODUV7tWF6Dk7mGeKKUQE4IQGJNf3CGYyzqQa3Nl00v8nXw5fJbmw2KEEG56oQAOo"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" data-alt="Friendly male face with high-key lighting, modern white interior background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_g5mKo-waGAQtUqgtLi3gdEfSEoCRspPnyC2-Qb3He80GyNyjMZK-iQf0dDuLeaQ1t1qX9etcc7on3ZiZ7LWRhKYXSbRFLTqjjGGPMmmxwTin1rmrJDdw5aaoBsGs-fNHlqdOLC-IE-uSBDSXmDQE2HR56dWYWGON6ZitzrdnApkOjY6Qwt7nglSeQiKfyEPzX-rJe2wmvsxKK9Uclg9yMJoGNHBnPS3z4S_kUoo1OFbyZnfNW2HzJK6POWB4nA6eE23AAnWKY8U"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" data-alt="Diverse room member laughing, bright and vibrant color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYS7Rw66dw4vrv0FNKe6y4HzQnGQ_tvrjoRFTNxEdHjCmARx9vAmNkrRy4Ev2Lzp2fMqiX05qXRz1_oagnzpbNa2q1b1D6B4Ld99tvO-KlbhwcXz5vVOhNVh0Zg4JCFyLLMPakfdF8WC0Hh3OkSEdJEoFGbumIvuBOQufWkZav-SxTBGhMKdiowdZ4eTJsVmIGoxOFeKqPp7hqU9p8WmVwyChGiWNIJSNApTdQt3SftWYq6AhsDUz6NVbe1ye66hGLw3-dHyEqX4I"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high flex items-center justify-center text-on-surface-variant text-[10px] font-bold">+1</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">2 Oct, 11:45 AM</span>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-24 right-md w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center transition-transform active:scale-90 z-50">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface shadow-md dark:shadow-none border-t border-outline-variant">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Personal</span>
+</button>
+<!-- Active Tab: Rooms -->
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-90 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="font-label-md text-label-md">Rooms</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Dues</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="font-label-md text-label-md">Profile</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for list items
+        document.querySelectorAll('.transition-transform').forEach(item => {
+            item.addEventListener('click', () => {
+                // Potential navigation or detail open
+                console.log('Expense clicked');
+            });
+        });
+
+        // Simple scroll shadow for header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-sm');
+                header.classList.add('bg-surface/95');
+                header.classList.add('backdrop-blur-md');
+            } else {
+                header.classList.remove('shadow-sm');
+                header.classList.remove('bg-surface/95');
+                header.classList.remove('backdrop-blur-md');
+            }
+        });
+    </script>
+</body></html>

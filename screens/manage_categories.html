@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FlatShare - Manage Categories</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#c0c1ff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#002113",
+                    "surface-container-low": "#eff4ff",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#fffbff",
+                    "primary": "#4648d4",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "tertiary-container": "#a36700",
+                    "surface-tint": "#494bd6",
+                    "surface-bright": "#f8f9ff",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-surface": "#0b1c30",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#dce9ff",
+                    "secondary-fixed-dim": "#4edea3",
+                    "outline-variant": "#c7c4d7",
+                    "on-tertiary-fixed": "#2a1700",
+                    "tertiary-fixed": "#ffddb8",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#07006c",
+                    "primary-fixed": "#e1e0ff",
+                    "on-background": "#0b1c30",
+                    "surface-container-highest": "#d3e4fe",
+                    "tertiary": "#825100",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-dim": "#cbdbf5",
+                    "on-secondary-fixed-variant": "#005236",
+                    "primary-container": "#6063ee",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "background": "#f8f9ff",
+                    "surface-variant": "#d3e4fe",
+                    "on-secondary-container": "#00714d",
+                    "primary-container": "#6063ee",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "outline": "#767586",
+                    "on-secondary": "#ffffff",
+                    "surface": "#f8f9ff",
+                    "on-tertiary-container": "#fffbff",
+                    "surface-container": "#e5eeff",
+                    "secondary-container": "#6cf8bb",
+                    "on-surface-variant": "#464554",
+                    "secondary": "#006c49",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "inverse-surface": "#213145"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "gutter": "16px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "xl": "32px",
+                    "base": "8px",
+                    "sm": "8px",
+                    "container-margin": "20px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "title-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-lg">
+<!-- Top Navigation Bar -->
+<header class="w-full top-0 sticky z-40 bg-surface shadow-sm h-16 flex items-center justify-between px-gutter max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-title-md text-title-md text-on-surface">Manage Categories</h1>
+</div>
+<div class="flex items-center">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-gutter py-lg pb-32">
+<!-- Dashboard Header Summary -->
+<section class="mb-xl">
+<div class="bg-primary-container p-lg rounded-xl shadow-sm text-on-primary-container flex flex-col md:flex-row justify-between items-start md:items-center gap-4 overflow-hidden relative">
+<div class="relative z-10">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile mb-xs">Organize Smart</h2>
+<p class="font-body-lg text-body-lg opacity-90 max-w-md">Categorize your shared expenses to gain better insights into your group spending habits.</p>
+</div>
+<button class="relative z-10 bg-on-primary-container text-primary-container font-title-md py-md px-xl rounded-full flex items-center gap-2 shadow-lg hover:scale-105 transition-transform active:scale-95" onclick="openModal()">
+<span class="material-symbols-outlined">add</span>
+                    Add New Category
+                </button>
+<!-- Decorative element -->
+<div class="absolute -right-8 -bottom-8 w-40 h-40 bg-on-primary-container opacity-10 rounded-full blur-3xl"></div>
+</div>
+</section>
+<!-- Category List Grid -->
+<section class="bento-grid">
+<!-- Category Item: Rent -->
+<div class="bg-surface p-md rounded-xl shadow-sm border border-neutral-100 flex items-center justify-between group hover:border-primary/30 transition-all">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-blue-100 text-blue-600">
+<span class="material-symbols-outlined text-[28px]">home</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md">Rent</h3>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Fixed Monthly</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-error-container text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Category Item: Groceries -->
+<div class="bg-surface p-md rounded-xl shadow-sm border border-neutral-100 flex items-center justify-between group hover:border-primary/30 transition-all">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-green-100 text-green-600">
+<span class="material-symbols-outlined text-[28px]">shopping_cart</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md">Groceries</h3>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Shared Supplies</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-error-container text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Category Item: Utilities -->
+<div class="bg-surface p-md rounded-xl shadow-sm border border-neutral-100 flex items-center justify-between group hover:border-primary/30 transition-all">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-yellow-100 text-yellow-700">
+<span class="material-symbols-outlined text-[28px]">bolt</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md">Utilities</h3>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Electric & Water</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-error-container text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Category Item: Internet -->
+<div class="bg-surface p-md rounded-xl shadow-sm border border-neutral-100 flex items-center justify-between group hover:border-primary/30 transition-all">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-indigo-100 text-indigo-600">
+<span class="material-symbols-outlined text-[28px]">wifi</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md">Internet</h3>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Fiber Optic</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-error-container text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Category Item: Cleaning -->
+<div class="bg-surface p-md rounded-xl shadow-sm border border-neutral-100 flex items-center justify-between group hover:border-primary/30 transition-all">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-cyan-100 text-cyan-600">
+<span class="material-symbols-outlined text-[28px]">cleaning_services</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md">Cleaning</h3>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Bi-weekly Maid</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-error-container text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Category Item: Maintenance -->
+<div class="bg-surface p-md rounded-xl shadow-sm border border-neutral-100 flex items-center justify-between group hover:border-primary/30 transition-all">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-red-100 text-red-600">
+<span class="material-symbols-outlined text-[28px]">build</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md">Maintenance</h3>
+<p class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">General Repairs</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-error-container text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Insights / Visual Cue -->
+<section class="mt-xl grid md:grid-cols-2 gap-lg">
+<div class="bg-surface-container border border-neutral-100 p-lg rounded-xl">
+<h4 class="font-title-md text-title-md mb-md">Why categories matter?</h4>
+<div class="space-y-md">
+<div class="flex gap-md">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<p class="font-body-sm text-body-sm">Visual reports help identify where most of your flat's money goes every month.</p>
+</div>
+<div class="flex gap-md">
+<span class="material-symbols-outlined text-primary">local_gas_station</span>
+<p class="font-body-sm text-body-sm">Auto-categorization uses these to tag recurring charges like rent and wifi.</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container border border-neutral-100 p-lg rounded-xl overflow-hidden relative">
+<div class="flex flex-col h-full justify-between">
+<h4 class="font-title-md text-title-md mb-md">Custom Themes</h4>
+<p class="font-body-sm text-body-sm mb-md">Use the new icon picker to give each room category a unique personality.</p>
+<div class="flex -space-x-3 overflow-hidden">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center border-2 border-white"><span class="material-symbols-outlined text-sm">palette</span></div>
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center border-2 border-white"><span class="material-symbols-outlined text-sm">stars</span></div>
+<div class="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center border-2 border-white"><span class="material-symbols-outlined text-sm">favorite</span></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell (Filter Logic Applied) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface-container-lowest shadow-[0_-4px_12px_0_rgba(0,0,0,0.05)] rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors active:scale-90 duration-300">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Personal</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors active:scale-90 duration-300">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-md text-label-md">Rooms</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors active:scale-90 duration-300">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Dues</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1 transition-all duration-300 active:scale-90">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="font-label-md text-label-md">Profile</span>
+</button>
+</nav>
+<!-- Add/Edit Category Modal (Bottom Sheet Style on Mobile, Center on Desktop) -->
+<div class="fixed inset-0 z-[60] hidden transition-opacity duration-300" id="categoryModal">
+<!-- Backdrop -->
+<div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeModal()"></div>
+<!-- Sheet -->
+<div class="absolute bottom-0 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:max-w-md bg-surface rounded-t-3xl md:rounded-3xl shadow-2xl overflow-hidden transition-transform duration-500 transform translate-y-full md:translate-y-0 md:scale-95" id="modalSheet">
+<div class="p-lg">
+<div class="flex justify-between items-center mb-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile">New Category</h2>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high" onclick="closeModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="space-y-lg">
+<!-- Name Input -->
+<div class="relative">
+<label class="absolute -top-2 left-3 bg-surface px-1 text-xs text-primary font-bold">CATEGORY NAME</label>
+<input class="w-full border border-outline px-md py-4 rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-lg" placeholder="e.g. Subscriptions" type="text"/>
+</div>
+<!-- Icon Picker -->
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-md uppercase tracking-wider">Select Icon</p>
+<div class="grid grid-cols-5 gap-md">
+<button class="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-container-high text-on-surface-variant border-2 border-primary"><span class="material-symbols-outlined">category</span></button>
+<button class="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">restaurant</span></button>
+<button class="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">pets</span></button>
+<button class="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">directions_car</span></button>
+<button class="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">stethoscope</span></button>
+<button class="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">sports_esports</span></button>
+<button class="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">subscriptions</span></button>
+<button class="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">theaters</span></button>
+<button class="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">fitness_center</span></button>
+<button class="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">more_horiz</span></button>
+</div>
+</div>
+<!-- Color Picker -->
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-md uppercase tracking-wider">Theme Color</p>
+<div class="flex flex-wrap gap-md">
+<button class="w-10 h-10 rounded-full bg-primary ring-offset-2 ring-2 ring-primary"></button>
+<button class="w-10 h-10 rounded-full bg-secondary"></button>
+<button class="w-10 h-10 rounded-full bg-tertiary"></button>
+<button class="w-10 h-10 rounded-full bg-error"></button>
+<button class="w-10 h-10 rounded-full bg-blue-500"></button>
+<button class="w-10 h-10 rounded-full bg-purple-500"></button>
+<button class="w-10 h-10 rounded-full bg-orange-500"></button>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex gap-md pt-lg">
+<button class="flex-1 py-4 px-md rounded-xl font-title-md border border-outline hover:bg-surface-container-low transition-colors" onclick="closeModal()">Cancel</button>
+<button class="flex-1 py-4 px-md rounded-xl font-title-md bg-primary text-on-primary shadow-md hover:bg-primary/90 transition-all active:scale-95">Save Category</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+        const modal = document.getElementById('categoryModal');
+        const sheet = document.getElementById('modalSheet');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                sheet.classList.remove('translate-y-full', 'md:scale-95');
+                sheet.classList.add('translate-y-0', 'md:scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            sheet.classList.add('translate-y-full', 'md:scale-95');
+            sheet.classList.remove('translate-y-0', 'md:scale-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Add micro-interactions for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+        });
+    </script>
+</body></html>

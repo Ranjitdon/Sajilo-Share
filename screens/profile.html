@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FlatShare - Profile</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#c0c1ff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#002113",
+                    "surface-container-low": "#eff4ff",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#fffbff",
+                    "primary": "#4648d4",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "tertiary-container": "#a36700",
+                    "surface-tint": "#494bd6",
+                    "surface-bright": "#f8f9ff",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-surface": "#0b1c30",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#dce9ff",
+                    "secondary-fixed-dim": "#4edea3",
+                    "outline-variant": "#c7c4d7",
+                    "on-tertiary-fixed": "#2a1700",
+                    "tertiary-fixed": "#ffddb8",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#07006c",
+                    "primary-fixed": "#e1e0ff",
+                    "on-background": "#0b1c30",
+                    "surface-container-highest": "#d3e4fe",
+                    "tertiary": "#825100",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-dim": "#cbdbf5",
+                    "on-secondary-fixed-variant": "#005236",
+                    "primary-container": "#6063ee",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "background": "#f8f9ff",
+                    "surface-variant": "#d3e4fe",
+                    "on-secondary-container": "#00714d",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "outline": "#767586",
+                    "on-secondary": "#ffffff",
+                    "surface": "#f8f9ff",
+                    "on-tertiary-container": "#fffbff",
+                    "surface-container": "#e5eeff",
+                    "secondary-container": "#6cf8bb",
+                    "on-surface-variant": "#464554",
+                    "secondary": "#006c49",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "inverse-surface": "#213145"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "gutter": "16px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "xl": "32px",
+                    "base": "8px",
+                    "sm": "8px",
+                    "container-margin": "20px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "title-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .bento-card {
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-card:active {
+            transform: scale(0.98);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-surface dark:bg-surface-dim shadow-sm">
+<div class="flex items-center justify-between px-gutter h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform duration-200 text-primary dark:text-primary-fixed-dim">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary dark:text-primary-fixed-dim">FlatShare</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors text-on-surface-variant" id="theme-toggle">
+<span class="material-symbols-outlined" id="theme-toggle-icon">dark_mode</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors text-primary dark:text-primary-fixed-dim">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-xl mx-auto px-container-margin py-lg space-y-lg">
+<!-- User Section (Bento Profile Header) -->
+<section class="bg-surface-container-lowest dark:bg-inverse-surface rounded-xl p-lg shadow-sm border border-neutral-100 dark:border-outline-variant flex items-center gap-md">
+<div class="relative">
+<div class="w-20 h-20 rounded-full overflow-hidden ring-4 ring-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a friendly young man named Karan Malhotra. He is smiling warmly, wearing a minimalist navy blue sweater. The background is a soft, blurred office interior with clean, high-key lighting. The overall aesthetic is professional yet approachable, fitting for a modern Fintech application's user profile, with high resolution and clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHcmF9y-xD3mu2Ysm8n0egCCN60muUBhmM9ueAkfdvCDKyZMxbwNeZoEU36EDDGWf9uB4oBRT2l6mmX2WF-_giJtBQWrLiMkSV4Njy2dXyosttHP4ZTomMYu0X3geOdFwLaZpOCZANySz0K03ObZWTW5CiJSH6OPzqBJp_Q7zvFl0Jxsbqal3TykpmJCXKwWgd3H2i7jwdHzJAxW14jNmr9DvcvE2Ix5HpwW1krKoewUzkCEvZAMFVHMwAsO27sNdvGg4ejap6f3U"/>
+</div>
+<div class="absolute bottom-0 right-0 bg-secondary-container text-on-secondary-container rounded-full p-1 border-2 border-surface-container-lowest dark:border-inverse-surface">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="flex-1">
+<h2 class="font-title-md text-title-md text-on-surface">Karan Malhotra</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">karan@example.com</p>
+<div class="mt-2 flex items-center gap-2">
+<span class="bg-primary-container text-on-primary-container text-[10px] px-2 py-0.5 rounded-full font-bold">PREMIUM MEMBER</span>
+</div>
+</div>
+</section>
+<!-- Stats Overview (Asymmetric Layout) -->
+<div class="grid grid-cols-2 gap-md">
+<div class="bg-primary-fixed text-on-primary-fixed p-md rounded-xl shadow-sm">
+<p class="font-label-md text-label-md opacity-80">Total Shared</p>
+<p class="font-title-md text-title-md mt-1">₹12,450</p>
+</div>
+<div class="bg-secondary-fixed text-on-secondary-fixed p-md rounded-xl shadow-sm">
+<p class="font-label-md text-label-md opacity-80">Active Dues</p>
+<p class="font-title-md text-title-md mt-1">₹3,200</p>
+</div>
+</div>
+<!-- Menu List Card -->
+<div class="bg-surface-container-lowest dark:bg-inverse-surface rounded-xl shadow-sm overflow-hidden border border-neutral-100 dark:border-outline-variant">
+<!-- Manage Categories -->
+<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors group">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container dark:bg-surface-dim flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined">category</span>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface">Manage Categories</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<!-- Settings -->
+<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors group">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container dark:bg-surface-dim flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface">Settings</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<!-- Invite Friends -->
+<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors group">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container dark:bg-surface-dim flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined">person_add</span>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface">Invite Friends</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<!-- Support -->
+<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors group border-t border-neutral-50 dark:border-outline-variant">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container dark:bg-surface-dim flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface">Support</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<!-- Logout -->
+<button class="w-full flex items-center justify-between p-md hover:bg-error-container/20 transition-colors group border-t border-neutral-50 dark:border-outline-variant">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-error-container/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined">logout</span>
+</div>
+<span class="font-body-lg text-body-lg text-error">Logout</span>
+</div>
+<span class="material-symbols-outlined text-error opacity-40">chevron_right</span>
+</button>
+</div>
+<!-- App Branding / Version Info -->
+<div class="text-center py-md opacity-40">
+<p class="font-label-md text-label-md">FlatShare v2.4.1</p>
+<p class="font-label-md text-label-md mt-1">Collective Trust &amp; Clarity</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface-container-lowest dark:bg-inverse-surface shadow-[0_-4px_12px_0_rgba(0,0,0,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:text-primary transition-colors active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Personal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:text-primary transition-colors active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-md text-label-md">Rooms</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:text-primary transition-colors active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Dues</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-container text-on-secondary-container dark:text-secondary-container rounded-full px-5 py-1 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</nav>
+<script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-toggle-icon');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.textContent = 'dark_mode';
+            } else {
+                html.classList.add('dark');
+                themeIcon.textContent = 'light_mode';
+            }
+        });
+
+        // Simple feedback on list items
+        document.querySelectorAll('button.group').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const label = btn.querySelector('span:not(.material-symbols-outlined)').textContent;
+                console.log(`Navigating to: ${label}`);
+            });
+        });
+    </script>
+</body></html>

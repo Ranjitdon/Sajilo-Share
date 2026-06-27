@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FlatShare - Rooms</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#0b1c30",
+                    "secondary-container": "#6cf8bb",
+                    "on-secondary-container": "#00714d",
+                    "surface-container": "#e5eeff",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-container-low": "#eff4ff",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-primary-fixed": "#07006c",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#e1e0ff",
+                    "surface-dim": "#cbdbf5",
+                    "secondary": "#006c49",
+                    "on-secondary-fixed": "#002113",
+                    "on-surface-variant": "#464554",
+                    "outline": "#767586",
+                    "on-primary-container": "#fffbff",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "surface-variant": "#d3e4fe",
+                    "surface-bright": "#f8f9ff",
+                    "surface-tint": "#494bd6",
+                    "on-tertiary-container": "#fffbff",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "inverse-primary": "#c0c1ff",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#dce9ff",
+                    "background": "#f8f9ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-surface": "#0b1c30",
+                    "primary": "#4648d4",
+                    "inverse-surface": "#213145",
+                    "tertiary": "#825100",
+                    "secondary-fixed-dim": "#4edea3",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "tertiary-container": "#a36700",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#6063ee",
+                    "outline-variant": "#c7c4d7",
+                    "tertiary-fixed": "#ffddb8",
+                    "surface": "#f8f9ff",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "xs": "4px",
+                    "base": "8px",
+                    "lg": "24px",
+                    "container-margin": "20px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "title-md": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9ff;
+        }
+        .tonal-elevation-1 {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eef1f6;
+        }
+        .active-scale:active {
+            transform: scale(0.95);
+            transition: transform 150ms ease-in-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface flex justify-between items-center px-container-margin py-sm w-full fixed top-0 z-40">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a friendly young woman with a warm smile, wearing minimalist modern glasses. The lighting is soft and high-key, emphasizing clean skin and a bright atmosphere. The background is a subtle gradient of soft blue and white, perfectly matching a premium Fintech app aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpwzTJsx8gbJTdmvnBTyh-FVJbD1u-lTArdBK8LbEeQqFOG8EZ44B47tfA7M33DdaJUNqJllOErsUPG537IfWdIXeWM5_JjmH0jURAT4PV4frc3YsRuY6vu9ikApXc7GBmj2oOs1W1sjL77o0R04v6ymgycLxYKuy-A_27VOAhgOiFhhFvrnpsalJD3_H9cnZmONr1gxn764N2lwqTiG25n1CrA5Qq0HWXi0H_dnjCUdMfQRg2JJNwJYFW5cZLF1eMjAKe5zEY-cM"/>
+</div>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary dark:text-primary-fixed-dim">FlatShare</h1>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="mt-20 px-container-margin">
+<!-- Header Section with Join Room -->
+<div class="flex justify-between items-end mb-lg">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Welcome back</p>
+<h2 class="font-title-md text-title-md text-on-surface">Your Shared Spaces</h2>
+</div>
+<button class="border-2 border-primary text-primary px-lg py-sm rounded-xl font-label-md text-label-md active-scale hover:bg-primary-container hover:text-white transition-all">
+                Join Room
+            </button>
+</div>
+<!-- Room Cards List -->
+<div class="space-y-md">
+<!-- Room Card 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl tonal-elevation-1 flex flex-col gap-md">
+<div class="flex justify-between items-start">
+<div class="flex gap-md items-center">
+<div class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl">apartment</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">The Penthouse</h3>
+<div class="flex -space-x-3 mt-sm">
+<div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a cheerful young man with curly hair, set against a soft focus urban background. The lighting is natural and bright, conveying a sense of community and trust. The style is modern and clean, fitting for a shared flat application profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEj7YtkGXJcEUbaijMCs1B6vLqaZSu5WqhYhhkFO6tA8clPb3HurGPQmTnlPTJmqCjbfupRuDuFmnPRzKe6q3ITYjzAhF4QHs3Ks7DajRFwdA5s5bTaC5JyEO-VNjhNT1iGGMA-wbV8wONwTtAoxVBoCIPPSB35hv58UZou3zN0d7hPI5d-xl4pZDWgReWH01tEGE9KUyksJR-FgCFJ0MYz_ap467AbhEFJno0u1uex3wnI-7fgB6CDnwOYe1S3bt4el19CeNSKRU"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A portrait of a smiling woman with sleek dark hair, looking confident. The lighting is studio-quality with soft shadows, against a minimalist pale blue backdrop. This photo represents a professional and reliable roommate in a high-end app environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtuI82ubzHvMMTNH04QdmKlrXmhrP1GubGcDuN6HCkanoKHsSJnuxynpINlFQUQRQiaQ_kqoACtQrULd8Nj8JSo1Z7nlIJCzmYgZJuYIpLi_oYWPcCmx3t4AcqckDA1VQR6OOJQwjmwz_2tdfSrUtGiAbu2qEAI2jTxu0srlh3_O6vATqX_DQW0UaCDdzywsxhsWWg5Y5gAZtZwwzEY6Rnia5IVdVQyCgC5YswEGG5bI5clc1dfc_GO7-CCKr049RJ365clSniJ9s"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A young creative person wearing a trendy yellow beanie, smiling towards the camera. The background is a blurred office space with modern design elements. The overall look is vibrant, friendly, and community-oriented." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHtABZoj5pYAW1CTvZ2Z4Y99W1NeFcE5TVBakHBkYzZ-qxfBKwmcALWS38Xk7FNzhtkSaTwbNIVma2IZN0BfxFoWk-hT5DYQN5sSNbyOMMzoN2MpjO9Pj5cRsDAKggAMscHE4tqGj3Fcqa3-OGjeua4Nvnpixge2A-wqYuUEKxi2QQYM5dD0R-3Y4ENkRC5RwvafNArHFsnQIPJaIuZzQWsxnGXRsT7vKznz4Z_8xkoYjv71_BQnU92MwxhmZbjkEHVKqi9uoiZqI"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-secondary-container flex items-center justify-center">
+<span class="text-[10px] font-bold text-on-secondary-container">+2</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-secondary-container/20 text-on-secondary-container px-sm py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span class="font-label-md text-label-md">$1,240</span>
+</div>
+</div>
+<div class="flex items-center gap-sm pt-sm border-t border-surface-container">
+<span class="material-symbols-outlined text-primary text-[18px]">history</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<span class="font-semibold text-on-surface">Karan</span> added Groceries <span class="opacity-60 text-xs">2h ago</span>
+</p>
+</div>
+</div>
+<!-- Room Card 2 -->
+<div class="bg-surface-container-lowest p-md rounded-xl tonal-elevation-1 flex flex-col gap-md">
+<div class="flex justify-between items-start">
+<div class="flex gap-md items-center">
+<div class="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl">beach_access</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Beach House</h3>
+<div class="flex -space-x-3 mt-sm">
+<div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A candid shot of a young man laughing, wearing a linen shirt, under warm golden hour sunlight. The lighting is cinematic and rich, with long soft shadows. This image depicts a relaxed, friendly roommate vibe for a coastal living space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwk76OgUfyvYDUrPNyL5KpXnSZb0j7l49QHh_mBcIpJU06N2Tj1LhtRKbQn8TUl4LUNbtFZ3tcF5Ybye7uR22xcpi1eBwmFnCkTcJTMyu1U1i4SS_Ui8kEhRVc1Snaf0AyxWUFrbMLTXo1N8E0TCNakcu220FkSlOOWM5v1M8jwifQCYDnnMB3LxnYxAHzUc067bry5QmMv7qB91G8E0NXI_BV3vCsmnKQf3n3uX7gro7xj1Z-H7pME9CGXM7VfG4Ug7BVDI762rg"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A friendly woman with braided hair and a denim jacket, looking directly at the camera with a kind expression. The background features some greenery and soft natural light, reinforcing a trusted, home-like feeling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpxEhG4AV3U-9cMEM5Z9UmalArVJTK7k4DqsXgehEK7sMRfUYmone9IYPxPxyMCrUzYcQ7GoMstmoZ__x3Ryf0Ykxa6z56yysxTcm5sV_w3c8ToLeONODGUeaI_Flb7TE43lngOMcWdlZKQ5YbjON-Vq8WJJiwLR_K_YWeIvF48qBrnjyoOoxNLt0d-zi33_b_l7ys-P9DKWAO1Sk8t58nqN-YC_sh28Eh_7Ih4WLdJvvbMIvWjENhnr6U-nnRa1vWD3943_aeyAs"/>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-error-container/20 text-on-error-container px-sm py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+<span class="font-label-md text-label-md">Pending</span>
+</div>
+</div>
+<div class="flex items-center gap-sm pt-sm border-t border-surface-container">
+<span class="material-symbols-outlined text-primary text-[18px]">history</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<span class="font-semibold text-on-surface">Sarah</span> settled Rent <span class="opacity-60 text-xs">5h ago</span>
+</p>
+</div>
+</div>
+<!-- Room Card 3 -->
+<div class="bg-surface-container-lowest p-md rounded-xl tonal-elevation-1 flex flex-col gap-md">
+<div class="flex justify-between items-start">
+<div class="flex gap-md items-center">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl">cottage</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Old Town Loft</h3>
+<div class="flex -space-x-3 mt-sm">
+<div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A portrait of a person with a creative aesthetic, wearing a turtleneck and focused expression. The lighting is sophisticated and atmospheric, with deep blues and soft whites. This person represents an artistic and calm flatmate persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKB9895EJrxydM1hBGZLEvgWPR6oXiBv4gICrctYI91Aj0xF3MAP09RcqxymBBa6FKoDIu3xFSr42y6m2NhCM4jctQAr3uRmWQaquHqS3yv4X5RH27Iatv6CI99sbM3wJRa1tCKQwHvD9cfbzwccH4MGhVNVk0qFjEjqy_VeO5ZWlafdQb7cLFRC3xqSQdD0jyJvL4oFUg-21lWWYF5jhscm__3eroJEGz-uq3LJrr9I8IPirw693YRxQkTjYeWbdHG3AEBX9FJPM"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A vibrant portrait of a young person with short blonde hair and a bright smile. The lighting is high-contrast and energetic, with a clean white studio background that makes the features pop. This image conveys energy and reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-z1I-sIcFqqgq9QP1caS3lI4yfX78k-DgNAW2ccW9iUFc7xUtS_fAWRvy2GcaBNbA9mlj0CTQTjAX0Wy2oEVmxFFPY1H6YPbUHBJSuUYuZOQwl227O6LySAlz7w2qI3OeEL35Art9rvQOvQdvYidzSJya8fOeoXFaQ2H-_JGc_5qGIJOSYtMwNTF1DLagKU4zd95ZUXnj0Gu9uNmwJDdzRpXSmVu2m5fbJUtJxZEut3Iepq9ebLItGSYRc7kPp_cwnNSFlVon3rQ"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A friendly man with a neatly trimmed beard wearing a casual gray sweater. The lighting is soft and even, highlighting a trustworthy and approachable look. The background is a blurred domestic living area." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhpA8ASl9qJOfCo-taI1IY4t5CY-bnzAx-PdH1voB4Coi0qOZ30Gsmmp-vOt4YCkKzPd_-Ja2Sztrv9Th2Zw0fOoyXHgcKj5g7Pra0KhRawGt66fsCyj5u95EZIHSwPhfkMM-50xvSSBgBzHIYbQhOKYWNJawNrFWPZSF8WxG7_5QFJEEkCBdGT5ZkUFAho2R4xuAF4Eux4HhBgd2nH5_LHOtc9WdKOSEG4dqcYivyJHdf1I-KyLlJu7-6STZb0f-MTAVxpQmdztc"/>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-primary-container/10 text-primary px-sm py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+<span class="font-label-md text-label-md">Settled</span>
+</div>
+</div>
+<div class="flex items-center gap-sm pt-sm border-t border-surface-container">
+<span class="material-symbols-outlined text-primary text-[18px]">history</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<span class="font-semibold text-on-surface">You</span> updated Wifi bill <span class="opacity-60 text-xs">Yesterday</span>
+</p>
+</div>
+</div>
+</div>
+<!-- Descriptive Graphic Placeholder -->
+<div class="mt-xl p-lg bg-surface-container-high rounded-3xl text-center">
+<h4 class="font-title-md text-title-md text-on-surface mb-sm">Split expenses effortlessly</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md">Invite your roommates and start tracking shared costs in real-time.</p>
+<div class="w-full h-40 rounded-2xl overflow-hidden relative group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A minimalist and high-end 3D digital illustration of glass spheres and translucent cards floating in a serene, bright void. The color palette is composed of soft teals, deep indigos, and crisp whites. The lighting is diffused and professional, evoking a sense of clarity, trust, and modern financial management. The overall style is clean and uncluttered." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANIMiKOfJchP8tgjVSeKFpb7GUCGvoxe-ZwczCAfQ6yV26Ti6VfjB9_s5NOim7Y0q0dQ4Fv2MXIAbzDfXmnMEH19xgS_n8DP-jxCmsHS_pRG7ycJfg1L13fCUpP7jRr0WRdaPGmvyt3QDndALunW-y33sWO69WEVENwA1InNt-IOd33AUSFYxeH3r8Hj_6PwxadnnIB9hURB62CXV7_ouMij1fIiI-lbJFEHVxwxSvSZH-kikwT7OZ8t6tXTFWXENF5Irvyk4ZbVY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+</div>
+</div>
+</main>
+<!-- FAB: Create Room -->
+<button class="fixed bottom-24 right-container-margin w-16 h-16 bg-primary text-white rounded-2xl shadow-xl flex items-center justify-center active:scale-90 transition-transform duration-200 z-50">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline shadow-md dark:shadow-none fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 rounded-t-xl">
+<!-- Personal Tab -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Personal</span>
+</a>
+<!-- Rooms Tab (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary-container text-on-secondary-container dark:text-on-secondary-container rounded-full px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="font-label-md text-label-md">Rooms</span>
+</a>
+<!-- Dues Tab -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Dues</span>
+</a>
+<!-- Profile Tab -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction: FAB elevation on scroll
+        window.addEventListener('scroll', () => {
+            const fab = document.querySelector('button.fixed.bottom-24');
+            if (window.scrollY > 20) {
+                fab.classList.add('shadow-2xl');
+                fab.style.transform = 'translateY(-4px)';
+            } else {
+                fab.classList.remove('shadow-2xl');
+                fab.style.transform = 'translateY(0)';
+            }
+        });
+
+        // Simple click feedback for list items
+        document.querySelectorAll('.tonal-elevation-1').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+                card.style.transition = 'transform 0.1s ease';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'scale(1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>
