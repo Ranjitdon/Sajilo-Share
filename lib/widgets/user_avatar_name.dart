@@ -55,6 +55,9 @@ class UserAvatar extends ConsumerWidget {
             backgroundImage: user.photoUrl!.startsWith('base64:')
                 ? MemoryImage(base64Decode(user.photoUrl!.substring(7)))
                 : NetworkImage(user.photoUrl!) as ImageProvider,
+            onBackgroundImageError: (e, s) {
+              // Suppress the error if the network image fails to load
+            },
           );
         }
         return CircleAvatar(

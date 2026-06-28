@@ -271,11 +271,12 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
                         ),
                         child: Row(
                           children: [
-                            const CircleAvatar(
+                            CircleAvatar(
                               radius: 20,
                               backgroundImage: NetworkImage(
                                 'https://lh3.googleusercontent.com/aida-public/AB6AXuBaHwp9FdA6F3fuOJeNE1LN_SW3z9OuBDPkFDPrOSZn9BKT_lsAYFXK0w4AfZF4_Yj5hpzahcHhG5YxYl99dtblROd4usEfR-uRek7bLOdqAxbpkfwUnNtyyyekh1YvMYuZNylfl9GmOGV0vaRSs8T2EDgwS641H0MepusfdlUDfgdHfKavcVw1NXMtzxmiAQqbpctWKaxkEy9f_M-b1z94kfnvLhnoCzpQNqz-K80bY4iXpg9yZvOsEiEvQvWc8OQ0fm2hYw2PNAw',
                               ),
+                              onBackgroundImageError: (e, s) {},
                             ),
                             const SizedBox(width: 12),
                             Expanded(
