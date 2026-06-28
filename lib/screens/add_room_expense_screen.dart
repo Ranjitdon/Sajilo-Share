@@ -9,6 +9,7 @@ import '../providers/auth_provider.dart';
 import '../providers/room_provider.dart';
 import '../providers/expense_provider.dart';
 import '../widgets/flatshare_app_bar.dart';
+import '../widgets/user_avatar_name.dart';
 import '../theme.dart';
 import 'dart:io';
 import 'dart:convert';
@@ -41,6 +42,7 @@ class AddRoomExpenseScreen extends ConsumerStatefulWidget {
 class _AddRoomExpenseScreenState extends ConsumerState<AddRoomExpenseScreen> {
   final _titleController = TextEditingController();
   final List<_ExpenseItemModel> _items = [];
+  List<String> _selectedMemberIds = [];
   
   String? _selectedCategoryId;
   DateTime _selectedDate = DateTime.now();
@@ -68,8 +70,10 @@ class _AddRoomExpenseScreenState extends ConsumerState<AddRoomExpenseScreen> {
       } else {
         _items.add(_ExpenseItemModel(name: 'Expense', amount: exp.amount.toString()));
       }
+      _selectedMemberIds = List.from(exp.splitBetweenIds);
     } else {
       _items.add(_ExpenseItemModel(name: '', amount: ''));
+      _selectedMemberIds = List.from(widget.room.memberIds);
     }
 
     for (var item in _items) {
@@ -160,6 +164,13 @@ class _AddRoomExpenseScreenState extends ConsumerState<AddRoomExpenseScreen> {
       return;
     }
 
+    if (_selectedMemberIds.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select at least one member to split the expense with.')),
+      );
+      return;
+    }
+
     final user = ref.read(authStateChangesProvider).value;
     if (user == null) return;
 
@@ -181,7 +192,7 @@ class _AddRoomExpenseScreenState extends ConsumerState<AddRoomExpenseScreen> {
           title,
           finalTotal,
           widget.expenseToEdit!.paidById, // keep original payer
-          widget.room.memberIds,
+          _selectedMemberIds,
           _selectedCategoryId!,
           _selectedDate,
           imageUrl,
@@ -193,7 +204,7 @@ class _AddRoomExpenseScreenState extends ConsumerState<AddRoomExpenseScreen> {
           title,
           finalTotal,
           user.uid,
-          widget.room.memberIds,
+          _selectedMemberIds,
           _selectedCategoryId!,
           _selectedDate,
           imageUrl,
@@ -633,33 +644,61 @@ class _AddRoomExpenseScreenState extends ConsumerState<AddRoomExpenseScreen> {
               ),
               const SizedBox(height: 24),
               
-              // Split info indicator
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.secondaryContainer.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: theme.colorScheme.secondaryContainer.withValues(alpha: 0.3),
+              // Split members selection
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'SPLIT BETWEEN',
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                      letterSpacing: 1.2,
+                    ),
                   ),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.info_outline, color: theme.colorScheme.onSecondaryContainer),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Text(
-                        widget.expenseToEdit == null
-                            ? 'This expense will be recorded as paid by you and split equally among all ${widget.room.memberIds.length} members of the room.'
-                            : 'This expense will be split equally among all ${widget.room.memberIds.length} members of the room.',
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSecondaryContainer,
-                          fontWeight: FontWeight.w500,
-                        ),
+                  const SizedBox(height: 12),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppTheme.surfaceContainerLowest,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
                       ),
                     ),
-                  ],
-                ),
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: widget.room.memberIds.length,
+                      separatorBuilder: (_, __) => Divider(height: 1, color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3)),
+                      itemBuilder: (context, index) {
+                        final uid = widget.room.memberIds[index];
+                        final isSelected = _selectedMemberIds.contains(uid);
+                        return CheckboxListTile(
+                          value: isSelected,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              if (value == true) {
+                                if (!_selectedMemberIds.contains(uid)) _selectedMemberIds.add(uid);
+                              } else {
+                                _selectedMemberIds.remove(uid);
+                              }
+                            });
+                          },
+                          title: Row(
+                            children: [
+                              UserAvatar(uid: uid, radius: 14),
+                              const SizedBox(width: 12),
+                              Expanded(child: UserNameText(uid: uid, style: theme.textTheme.bodyMedium)),
+                            ],
+                          ),
+                          activeColor: theme.colorScheme.primary,
+                          checkColor: theme.colorScheme.onPrimary,
+                          controlAffinity: ListTileControlAffinity.trailing,
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 48),
               
