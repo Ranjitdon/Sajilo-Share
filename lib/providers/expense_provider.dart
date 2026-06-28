@@ -110,6 +110,15 @@ class ExpenseController {
         .doc(categoryId)
         .delete();
   }
+
+  Future<void> deletePersonalExpense(String expenseId) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('personalExpenses')
+        .doc(expenseId)
+        .delete();
+  }
 }
 
 final expenseControllerProvider = Provider.autoDispose<ExpenseController?>((ref) {
