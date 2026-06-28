@@ -209,8 +209,8 @@ class _PersonalExpensesScreenState extends ConsumerState<PersonalExpensesScreen>
 
                                 final catColor = _hexToColor(category.color);
 
-                                Widget tile = ListTile(
-                                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                                return ListTile(
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                                   leading: Container(
                                     width: 48,
                                     height: 48,
@@ -234,74 +234,71 @@ class _PersonalExpensesScreenState extends ConsumerState<PersonalExpensesScreen>
                                     '${DateFormat('hh:mm a').format(expense.date)} • ${expense.note.isNotEmpty ? category.name : (expense.roomId != null ? "Room" : "Personal")}',
                                     style: theme.textTheme.bodySmall,
                                   ),
-                                  trailing: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text(
-                                        '₹${formatMoney(expense.amount)}',
-                                        style: theme.textTheme.titleMedium?.copyWith(
-                                          color: theme.colorScheme.error,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                        ),
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            '₹${formatMoney(expense.amount)}',
+                                            style: theme.textTheme.titleMedium?.copyWith(
+                                              color: theme.colorScheme.error,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          Text(
+                                            expense.roomId != null ? 'Room Share' : 'Personal',
+                                            style: theme.textTheme.labelMedium?.copyWith(
+                                              fontSize: 10,
+                                              color: expense.roomId != null ? theme.colorScheme.primary : theme.colorScheme.onSurfaceVariant,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        expense.roomId != null ? 'Room Share' : 'Personal',
-                                        style: theme.textTheme.labelMedium?.copyWith(
-                                          fontSize: 10,
-                                          color: expense.roomId != null ? theme.colorScheme.primary : theme.colorScheme.onSurfaceVariant,
+                                      if (expense.roomId == null) ...[
+                                        const SizedBox(width: 4),
+                                        IconButton(
+                                          padding: EdgeInsets.zero,
+                                          constraints: const BoxConstraints(),
+                                          icon: Icon(Icons.delete_outline, color: theme.colorScheme.error, size: 20),
+                                          onPressed: () async {
+                                            final confirm = await showDialog<bool>(
+                                              context: context,
+                                              builder: (ctx) => AlertDialog(
+                                                title: const Text('Delete Expense'),
+                                                content: const Text('Are you sure you want to delete this personal expense?'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () => Navigator.pop(ctx, false),
+                                                    child: const Text('Cancel'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () => Navigator.pop(ctx, true),
+                                                    child: Text('Delete', style: TextStyle(color: theme.colorScheme.error)),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                            if (confirm == true) {
+                                              final controller = ref.read(expenseControllerProvider);
+                                              if (controller != null) {
+                                                await controller.deletePersonalExpense(expense.id);
+                                                if (context.mounted) {
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    const SnackBar(content: Text('Expense deleted')),
+                                                  );
+                                                }
+                                              }
+                                            }
+                                          },
                                         ),
-                                      ),
+                                      ],
                                     ],
                                   ),
                                 );
-
-                                if (expense.roomId == null) {
-                                  return Dismissible(
-                                    key: Key(expense.id),
-                                    direction: DismissDirection.endToStart,
-                                    background: Container(
-                                      color: theme.colorScheme.error,
-                                      alignment: Alignment.centerRight,
-                                      padding: const EdgeInsets.only(right: 20.0),
-                                      child: const Icon(Icons.delete, color: Colors.white),
-                                    ),
-                                    confirmDismiss: (direction) async {
-                                      return await showDialog<bool>(
-                                        context: context,
-                                        builder: (ctx) => AlertDialog(
-                                          title: const Text('Delete Expense'),
-                                          content: const Text('Are you sure you want to delete this personal expense?'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(ctx, false),
-                                              child: const Text('Cancel'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(ctx, true),
-                                              child: Text('Delete', style: TextStyle(color: theme.colorScheme.error)),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                    onDismissed: (direction) async {
-                                      final controller = ref.read(expenseControllerProvider);
-                                      if (controller != null) {
-                                        await controller.deletePersonalExpense(expense.id);
-                                        if (context.mounted) {
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            const SnackBar(content: Text('Expense deleted')),
-                                          );
-                                        }
-                                      }
-                                    },
-                                    child: tile,
-                                  );
-                                }
-
-                                return tile;
                               },
                             ),
                           ),
