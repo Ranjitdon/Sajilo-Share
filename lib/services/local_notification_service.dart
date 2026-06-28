@@ -1,10 +1,13 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/foundation.dart';
 
 class LocalNotificationService {
   static final FlutterLocalNotificationsPlugin _notificationsPlugin = FlutterLocalNotificationsPlugin();
 
   static Future<void> initialize() async {
+    if (kIsWeb) return; // flutter_local_notifications is not fully supported on web without specific config
+    
     const InitializationSettings initializationSettings = InitializationSettings(
       android: AndroidInitializationSettings('@mipmap/launcher_icon'),
       iOS: DarwinInitializationSettings(
@@ -23,6 +26,8 @@ class LocalNotificationService {
   }
 
   static Future<void> requestPermission() async {
+    if (kIsWeb) return; // permission_handler doesn't support web properly
+    
     final status = await Permission.notification.status;
     if (status.isDenied) {
       await Permission.notification.request();
@@ -34,6 +39,8 @@ class LocalNotificationService {
     required String title,
     required String body,
   }) async {
+    if (kIsWeb) return;
+
     const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
       'flatshare_updates',
       'Flatshare Updates',
@@ -56,3 +63,4 @@ class LocalNotificationService {
     );
   }
 }
+
