@@ -260,10 +260,12 @@ class FlatShareAppBar extends ConsumerWidget implements PreferredSizeWidget {
           final nextLatest = nextNotifs.isEmpty ? 0 : nextNotifs.first.timestamp.millisecondsSinceEpoch;
           
           if (nextLatest > prevLatest && nextLatest > DateTime.now().subtract(const Duration(seconds: 10)).millisecondsSinceEpoch) {
+            ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: const Text('New notification received!'),
                 behavior: SnackBarBehavior.floating,
+                duration: const Duration(seconds: 3),
                 action: SnackBarAction(label: 'View', onPressed: () => _showNotifications(context, ref)),
               ),
             );
