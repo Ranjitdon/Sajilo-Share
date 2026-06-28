@@ -162,15 +162,16 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
             totalSpent += exp.amount;
           }
 
-          double myBalance = 0.0;
+          double toReceive = 0.0;
+          double toPay = 0.0;
           if (user != null && duesAsyncValue.hasValue) {
             final dues = duesAsyncValue.value ?? [];
             final roomDues = dues.where((d) => d.roomId == widget.room.id);
             for (final d in roomDues) {
               if (d.owedToId == user.uid) {
-                myBalance += d.amount;
+                toReceive += d.amount;
               } else if (d.owedById == user.uid) {
-                myBalance -= d.amount;
+                toPay += d.amount;
               }
             }
           }
@@ -290,41 +291,64 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 16),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
                     Expanded(
                       child: Container(
                         padding: const EdgeInsets.all(16.0),
                         decoration: BoxDecoration(
-                          color: (myBalance >= 0
-                                  ? theme.colorScheme.secondaryContainer
-                                  : theme.colorScheme.errorContainer)
-                              .withValues(alpha: 0.15),
+                          color: theme.colorScheme.secondaryContainer.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Your Dues',
+                              'You Need to Receive',
                               style: theme.textTheme.labelMedium?.copyWith(
-                                color: myBalance >= 0
-                                    ? theme.colorScheme.onSecondaryContainer
-                                    : theme.colorScheme.onErrorContainer,
+                                color: theme.colorScheme.onSecondaryContainer,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              myBalance.abs() < 0.01 
-                                  ? '₹0'
-                                  : (myBalance > 0 
-                                      ? '₹${formatMoney(myBalance.abs())}'
-                                      : '-₹${formatMoney(myBalance.abs())}'),
+                              '₹${formatMoney(toReceive)}',
                               style: theme.textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
-                                color: myBalance >= 0
-                                    ? theme.colorScheme.onSecondaryContainer
-                                    : theme.colorScheme.onErrorContainer,
+                                color: theme.colorScheme.onSecondaryContainer,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.errorContainer.withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'You Need to Pay',
+                              style: theme.textTheme.labelMedium?.copyWith(
+                                color: theme.colorScheme.onErrorContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              '₹${formatMoney(toPay)}',
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: theme.colorScheme.onErrorContainer,
                               ),
                             ),
                           ],
