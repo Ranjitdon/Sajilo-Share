@@ -792,6 +792,24 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
                           ),
                         );
                       }).toList(),
+                      if (isMe) ...[
+                        const SizedBox(height: 12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton.icon(
+                              onPressed: () => _deleteExpense(context, ref, exp),
+                              icon: Icon(Icons.delete_outline, size: 16, color: theme.colorScheme.error),
+                              label: Text('Delete Expense', style: TextStyle(color: theme.colorScheme.error, fontSize: 12)),
+                              style: TextButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                minimumSize: Size.zero,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ]
                     ]
                   ],
                 ),
@@ -1356,6 +1374,49 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
           ),
         ],
       ));
+    }
+  }
+
+  Future<void> _deleteExpense(BuildContext context, WidgetRef ref, RoomExpense expense) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Expense?'),
+        content: const Text('Are you sure you want to delete this expense? This action cannot be undone and will affect everyone\'s balances in the room.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text('Delete', style: TextStyle(color: Theme.of(context).colorScheme.error)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm == true) {
+      try {
+        await FirebaseFirestore.instance
+            .collection('rooms')
+            .doc(widget.room.id)
+            .collection('expenses')
+            .doc(expense.id)
+            .delete();
+            
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Expense deleted successfully')),
+          );
+        }
+      } catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to delete expense: $e')),
+          );
+        }
+      }
     }
   }
 }
