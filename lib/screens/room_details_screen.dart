@@ -506,22 +506,36 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
               // Calculate user's specific debt statement
               String debtStatement = '';
               Color debtColor = theme.colorScheme.onSurfaceVariant;
+              final allDues = duesAsyncValue.value ?? [];
+              
               if (isMe) {
                 double myShare = exp.splitBetweenIds.contains(myUid)
                     ? (exp.amount / exp.splitBetweenIds.length)
                     : 0.0;
                 double owedToMe = exp.amount - myShare;
                 if (owedToMe > 0) {
-                  debtStatement = 'Owed to you';
-                  debtColor = theme.colorScheme.secondary;
+                  final stillOwedInRoom = allDues.where((d) => d.roomId == widget.room.id && d.owedToId == myUid).isNotEmpty;
+                  if (stillOwedInRoom) {
+                    debtStatement = 'Owed to you';
+                    debtColor = theme.colorScheme.secondary;
+                  } else {
+                    debtStatement = 'Settled';
+                    debtColor = theme.colorScheme.onSurfaceVariant;
+                  }
                 } else {
                   debtStatement = 'Personal';
                 }
               } else {
                 if (exp.splitBetweenIds.contains(myUid)) {
                   double share = exp.amount / exp.splitBetweenIds.length;
-                  debtStatement = 'You owe ₹${formatMoney(share)}';
-                  debtColor = theme.colorScheme.error;
+                  final stillOwesInRoom = allDues.where((d) => d.roomId == widget.room.id && d.owedById == myUid).isNotEmpty;
+                  if (stillOwesInRoom) {
+                    debtStatement = 'You owe ₹${formatMoney(share)}';
+                    debtColor = theme.colorScheme.error;
+                  } else {
+                    debtStatement = 'Settled';
+                    debtColor = theme.colorScheme.onSurfaceVariant;
+                  }
                 } else {
                   debtStatement = 'Not involved';
                 }
