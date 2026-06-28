@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'theme.dart';
 import 'router.dart';
+import 'services/local_notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +16,8 @@ void main() async {
     debugPrint('Firebase initialization failed (might be unsupported platform): $e');
   }
 
+  await LocalNotificationService.initialize();
+
   runApp(
     const ProviderScope(
       child: FlatShareApp(),
@@ -22,11 +25,25 @@ void main() async {
   );
 }
 
-class FlatShareApp extends ConsumerWidget {
+class FlatShareApp extends ConsumerStatefulWidget {
   const FlatShareApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<FlatShareApp> createState() => _FlatShareAppState();
+}
+
+class _FlatShareAppState extends ConsumerState<FlatShareApp> {
+  @override
+  void initState() {
+    super.initState();
+    // Request permission on first start
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      LocalNotificationService.requestPermission();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(

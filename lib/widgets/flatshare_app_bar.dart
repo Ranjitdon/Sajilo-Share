@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../providers/auth_provider.dart';
 import '../providers/notification_provider.dart';
+import '../services/local_notification_service.dart';
 import '../theme.dart';
 
 class FlatShareAppBar extends ConsumerWidget implements PreferredSizeWidget {
@@ -260,6 +261,15 @@ class FlatShareAppBar extends ConsumerWidget implements PreferredSizeWidget {
           final nextLatest = nextNotifs.isEmpty ? 0 : nextNotifs.first.timestamp.millisecondsSinceEpoch;
           
           if (nextLatest > prevLatest && nextLatest > DateTime.now().subtract(const Duration(seconds: 10)).millisecondsSinceEpoch) {
+            final newNotif = nextNotifs.first;
+            
+            // Show native system notification
+            LocalNotificationService.showNotification(
+              id: newNotif.hashCode,
+              title: newNotif.title,
+              body: newNotif.body,
+            );
+
             ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
