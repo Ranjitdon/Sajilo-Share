@@ -403,7 +403,7 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
             },
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
-              child: _buildActiveTabContent(filteredExpenses, categories, user?.uid, theme),
+              child: _buildActiveTabContent(filteredExpenses, categories, user?.uid, theme, duesAsyncValue.value ?? []),
             ),
           );
         },
@@ -458,7 +458,7 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
     );
   }
 
-  Widget _buildActiveTabContent(List<RoomExpense> expenses, List<ExpenseCategory> categories, String? myUid, ThemeData theme) {
+  Widget _buildActiveTabContent(List<RoomExpense> expenses, List<ExpenseCategory> categories, String? myUid, ThemeData theme, List<Due> allDues) {
     if (_activeTab == 0) {
       // Expenses Tab
       return Column(
@@ -506,7 +506,7 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
               // Calculate user's specific debt statement
               String debtStatement = '';
               Color debtColor = theme.colorScheme.onSurfaceVariant;
-              final allDues = duesAsyncValue.value ?? [];
+              // allDues passed from arguments
               
               if (isMe) {
                 double myShare = exp.splitBetweenIds.contains(myUid)
