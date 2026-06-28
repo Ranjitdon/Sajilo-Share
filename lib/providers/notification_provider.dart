@@ -5,6 +5,7 @@ import '../utils/format_utils.dart';
 import 'auth_provider.dart';
 import 'room_provider.dart';
 import 'dues_provider.dart';
+import 'user_provider.dart';
 
 class AppNotification {
   final String title;
@@ -26,20 +27,6 @@ class AppNotification {
   });
 }
 
-// Mapper to resolve display names
-String getRoommateName(String uid) {
-  final names = [
-    'Ananya Sharma',
-    'Rohan Mehra',
-    'Ishaan Gupta',
-    'Zoya Khan',
-    'Sagar Malhotra',
-    'Sarah Sen',
-    'Karan Malhotra',
-  ];
-  final index = uid.hashCode.abs() % names.length;
-  return names[index];
-}
 
 final notificationsProvider = Provider.autoDispose<AsyncValue<List<AppNotification>>>((ref) {
   final user = ref.watch(authStateChangesProvider).value;
@@ -67,7 +54,16 @@ final notificationsProvider = Provider.autoDispose<AsyncValue<List<AppNotificati
 
         // Map expenses to notifications
         for (final exp in expenses) {
-          final payerName = exp.paidById == user.uid ? 'You' : getRoommateName(exp.paidById);
+          String payerName = 'Someone';
+          if (exp.paidById == user.uid) {
+            payerName = 'You';
+          } else {
+            final userAsync = ref.watch(userProfileProvider(exp.paidById));
+            if (userAsync.hasValue && userAsync.value != null && userAsync.value!.displayName.isNotEmpty) {
+              payerName = userAsync.value!.displayName;
+            }
+          }
+          
           allNotifications.add(AppNotification(
             title: 'New Expense in ${room.name}',
             body: '$payerName added "${exp.description}" of ₹${formatMoney(exp.amount)}.',
@@ -84,8 +80,25 @@ final notificationsProvider = Provider.autoDispose<AsyncValue<List<AppNotificati
           final settlementId = stl['id'] as String?;
           if (fromUid == null || toUid == null || settlementId == null) continue;
 
-          final fromName = fromUid == user.uid ? 'You' : getRoommateName(fromUid);
-          final toName = toUid == user.uid ? 'you' : getRoommateName(toUid);
+          String fromName = 'Someone';
+          if (fromUid == user.uid) {
+            fromName = 'You';
+          } else {
+            final fromUserAsync = ref.watch(userProfileProvider(fromUid));
+            if (fromUserAsync.hasValue && fromUserAsync.value != null && fromUserAsync.value!.displayName.isNotEmpty) {
+              fromName = fromUserAsync.value!.displayName;
+            }
+          }
+
+          String toName = 'someone';
+          if (toUid == user.uid) {
+            toName = 'you';
+          } else {
+            final toUserAsync = ref.watch(userProfileProvider(toUid));
+            if (toUserAsync.hasValue && toUserAsync.value != null && toUserAsync.value!.displayName.isNotEmpty) {
+              toName = toUserAsync.value!.displayName;
+            }
+          }
           final amount = (stl['amount'] ?? 0.0) as num;
           final status = stl['status'] as String? ?? 'pending';
           final createdAt = stl['createdAt'] != null ? (stl['createdAt'] as dynamic).toDate() : DateTime.now();
