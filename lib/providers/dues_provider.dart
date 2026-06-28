@@ -53,8 +53,18 @@ final userDuesProvider = Provider.autoDispose<AsyncValue<List<Due>>>((ref) {
         final expenses = expensesAsync.value ?? [];
         final settlements = settlementsAsync.value ?? [];
 
-        // Calculate net balances for this room
-        Map<String, double> balances = {};
+        // Calculate pairwise net balances for this room
+        // pairwiseBalances[A][B] = Amount A owes B
+        Map<String, Map<String, double>> pairwiseBalances = {};
+
+        void addDebt(String debtor, String creditor, double amount) {
+          if (debtor == creditor) return;
+          pairwiseBalances.putIfAbsent(debtor, () => {});
+          pairwiseBalances[debtor]![creditor] = (pairwiseBalances[debtor]![creditor] ?? 0) + amount;
+          
+          pairwiseBalances.putIfAbsent(creditor, () => {});
+          pairwiseBalances[creditor]![debtor] = (pairwiseBalances[creditor]![debtor] ?? 0) - amount;
+        }
 
         // 1. Process Expenses
         for (final exp in expenses) {
@@ -62,68 +72,45 @@ final userDuesProvider = Provider.autoDispose<AsyncValue<List<Due>>>((ref) {
           
           double splitAmount = exp.amount / exp.splitBetweenIds.length;
           
-          balances[exp.paidById] = (balances[exp.paidById] ?? 0) + exp.amount;
           for (final splitId in exp.splitBetweenIds) {
-            balances[splitId] = (balances[splitId] ?? 0) - splitAmount;
+            addDebt(splitId, exp.paidById, splitAmount);
           }
         }
 
         // 2. Process Settlements
         for (final stl in settlements) {
           final status = stl['status'] as String?;
-          if (status != 'confirmed') continue; // Only confirmed settlements affect balances
+          if (status != 'confirmed') continue; 
 
           final fromUid = stl['fromUid'] as String?;
           final toUid = stl['toUid'] as String?;
           final amount = (stl['amount'] ?? 0.0) as num;
           
           if (fromUid != null && toUid != null) {
-            balances[fromUid] = (balances[fromUid] ?? 0) + amount.toDouble();
-            balances[toUid] = (balances[toUid] ?? 0) - amount.toDouble();
+            // fromUid paid toUid, so fromUid's debt to toUid is reduced.
+            // Which is equivalent to saying toUid owes fromUid the settlement amount (offsetting the debt).
+            addDebt(toUid, fromUid, amount.toDouble());
           }
         }
 
-        // 3. Resolve Debt Graph (Greedy Algorithm)
-        List<MapEntry<String, double>> debtors = [];
-        List<MapEntry<String, double>> creditors = [];
-
-        balances.forEach((uid, balance) {
-          if (balance < -0.01) {
-            debtors.add(MapEntry(uid, balance.abs()));
-          } else if (balance > 0.01) {
-            creditors.add(MapEntry(uid, balance));
-          }
+        // 3. Extract Dues from Pairwise Balances (No optimization)
+        // We only extract where amount > 0 (meaning debtor owes creditor).
+        pairwiseBalances.forEach((debtorId, creditors) {
+          creditors.forEach((creditorId, amount) {
+            if (amount > 0.01) {
+              // Only add to list if it involves the current user
+              if (debtorId == user.uid || creditorId == user.uid) {
+                allDues.add(Due(
+                  owedToId: creditorId,
+                  owedById: debtorId,
+                  amount: amount,
+                  roomId: room.id,
+                  roomName: room.name,
+                ));
+              }
+            }
+          });
         });
-
-        debtors.sort((a, b) => b.value.compareTo(a.value));
-        creditors.sort((a, b) => b.value.compareTo(a.value));
-
-        int i = 0;
-        int j = 0;
-
-        while (i < debtors.length && j < creditors.length) {
-          final debtorId = debtors[i].key;
-          final creditorId = creditors[j].key;
-          
-          final amount = debtors[i].value < creditors[j].value ? debtors[i].value : creditors[j].value;
-          
-          // Only add to list if it involves the current user
-          if (debtorId == user.uid || creditorId == user.uid) {
-            allDues.add(Due(
-              owedToId: creditorId,
-              owedById: debtorId,
-              amount: amount,
-              roomId: room.id,
-              roomName: room.name,
-            ));
-          }
-
-          debtors[i] = MapEntry(debtorId, debtors[i].value - amount);
-          creditors[j] = MapEntry(creditorId, creditors[j].value - amount);
-
-          if (debtors[i].value < 0.01) i++;
-          if (creditors[j].value < 0.01) j++;
-        }
       }
 
       if (isLoading && allDues.isEmpty) {
