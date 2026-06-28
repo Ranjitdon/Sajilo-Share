@@ -10,6 +10,7 @@ class RoomExpense {
   final DateTime createdAt;
   final String createdBy;
   final String categoryId;
+  final List<Map<String, dynamic>> items;
 
   final String? imageUrl;
 
@@ -23,10 +24,17 @@ class RoomExpense {
     required this.createdAt,
     required this.createdBy,
     this.categoryId = 'others',
+    this.items = const [],
     this.imageUrl,
   });
 
   factory RoomExpense.fromMap(Map<String, dynamic> map, String id) {
+    List<Map<String, dynamic>> parsedItems = [];
+    if (map['items'] != null) {
+      parsedItems = List<Map<String, dynamic>>.from(
+          (map['items'] as List).map((e) => Map<String, dynamic>.from(e)));
+    }
+
     return RoomExpense(
       id: id,
       roomId: map['roomId'] ?? '',
@@ -37,6 +45,7 @@ class RoomExpense {
       createdAt: (map['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
       createdBy: map['createdBy'] ?? '',
       categoryId: map['categoryId'] ?? 'others',
+      items: parsedItems,
       imageUrl: map['imageUrl'],
     );
   }
@@ -51,6 +60,7 @@ class RoomExpense {
       'createdAt': Timestamp.fromDate(createdAt),
       'createdBy': createdBy,
       'categoryId': categoryId,
+      'items': items,
       if (imageUrl != null) 'imageUrl': imageUrl,
     };
   }

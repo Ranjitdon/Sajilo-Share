@@ -87,7 +87,7 @@ class RoomService {
     await _db.collection('rooms').doc(roomId).delete();
   }
 
-  Future<void> addRoomExpense(String roomId, String description, double amount, String paidById, List<String> splitBetweenIds, [String categoryId = 'others', DateTime? date, String? imageUrl]) async {
+  Future<void> addRoomExpense(String roomId, String description, double amount, String paidById, List<String> splitBetweenIds, [String categoryId = 'others', DateTime? date, String? imageUrl, List<Map<String, dynamic>> items = const []]) async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
     
@@ -102,8 +102,27 @@ class RoomService {
       createdBy: user.uid,
       categoryId: categoryId,
       imageUrl: imageUrl,
+      items: items,
     );
     await _db.collection('rooms').doc(roomId).collection('expenses').add(expense.toMap());
+  }
+
+  Future<void> updateRoomExpense(String roomId, String expenseId, String description, double amount, String paidById, List<String> splitBetweenIds, [String categoryId = 'others', DateTime? date, String? imageUrl, List<Map<String, dynamic>> items = const []]) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+    
+    final updates = {
+      'description': description,
+      'amount': amount,
+      'paidById': paidById,
+      'splitBetweenIds': splitBetweenIds,
+      'categoryId': categoryId,
+      'items': items,
+    };
+    if (date != null) updates['createdAt'] = Timestamp.fromDate(date);
+    if (imageUrl != null) updates['imageUrl'] = imageUrl;
+
+    await _db.collection('rooms').doc(roomId).collection('expenses').doc(expenseId).update(updates);
   }
 }
 

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -414,7 +415,7 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
       floatingActionButton: FloatingActionButton(
         heroTag: 'fab_room_details',
         onPressed: () {
-          context.push('/add-room-expense', extra: widget.room);
+          context.push('/add-room-expense', extra: {'room': widget.room});
         },
         backgroundColor: theme.colorScheme.primary,
         foregroundColor: Colors.white,
@@ -689,7 +690,7 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Expense Breakdown',
+                            'Split Breakdown',
                             style: theme.textTheme.labelMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: theme.colorScheme.onSurfaceVariant,
@@ -750,6 +751,51 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
                         ],
                       ),
                       const SizedBox(height: 12),
+                      if (exp.items.isNotEmpty) ...[
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text('Items', style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+                              const SizedBox(height: 8),
+                              ...exp.items.map((item) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 6.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          item['name']?.toString() ?? '',
+                                          style: theme.textTheme.bodySmall,
+                                        ),
+                                      ),
+                                      Text(
+                                        '₹${formatMoney(double.tryParse(item['amount']?.toString() ?? '0') ?? 0)}',
+                                        style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                              Divider(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Total', style: theme.textTheme.labelSmall?.copyWith(fontWeight: FontWeight.bold)),
+                                  Text('₹${formatMoney(exp.amount)}', style: theme.textTheme.labelSmall?.copyWith(fontWeight: FontWeight.bold, color: theme.colorScheme.primary)),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                      ],
                       if (!exp.splitBetweenIds.contains(exp.paidById)) ...[
                         Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
@@ -797,6 +843,22 @@ class _RoomDetailsScreenState extends ConsumerState<RoomDetailsScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
+                            TextButton.icon(
+                              onPressed: () {
+                                context.push('/add-room-expense', extra: {
+                                  'room': widget.room,
+                                  'expenseToEdit': exp,
+                                });
+                              },
+                              icon: Icon(Icons.edit_outlined, size: 16, color: theme.colorScheme.primary),
+                              label: Text('Edit Expense', style: TextStyle(color: theme.colorScheme.primary, fontSize: 12)),
+                              style: TextButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                minimumSize: Size.zero,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
                             TextButton.icon(
                               onPressed: () => _deleteExpense(context, ref, exp),
                               icon: Icon(Icons.delete_outline, size: 16, color: theme.colorScheme.error),

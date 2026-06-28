@@ -14,6 +14,7 @@ import 'screens/analytics_screen.dart';
 import 'screens/due_breakdown_screen.dart';
 import 'screens/room_analytics_screen.dart';
 import 'models/room.dart';
+import 'models/room_expense.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateChangesProvider);
@@ -64,7 +65,13 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/add-room-expense',
-        builder: (context, state) => AddRoomExpenseScreen(room: state.extra as Room),
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>;
+          return AddRoomExpenseScreen(
+            room: extra['room'] as Room,
+            expenseToEdit: extra['expenseToEdit'],
+          );
+        },
       ),
       GoRoute(
         path: '/manage-categories',
